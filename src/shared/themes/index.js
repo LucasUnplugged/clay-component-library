@@ -27,19 +27,18 @@ const _shiftColor = (col, amt) => {
 
 const _generateColorOptions = ({ light, regular, dark }) => {
   const hsp = _getColorHSP(regular);
-  const darkModifier = hsp > 200 ? 2 : 1;
-  const lightModifier = hsp < 100 ? 2 : 1;
+  const modifier = hsp < 100 ? 2 : 1;
   return {
-    50:  _shiftColor(dark,    -20 * darkModifier),
-    100: _shiftColor(dark,    -10 * darkModifier),
+    50:  _shiftColor(dark,    -20 * modifier),
+    100: _shiftColor(dark,    -10 * modifier),
     200: dark,
     300: _shiftColor(dark,     10),
     400: _shiftColor(regular, -10),
     500: regular,
     600: _shiftColor(regular,  10),
-    700: _shiftColor(light,    -10 * (2 - lightModifier)),
-    800: _shiftColor(light,    10 * (lightModifier - 1)),
-    900: _shiftColor(light,    10 * lightModifier),
+    700: _shiftColor(light,    -10 * (2 - modifier)),
+    800: _shiftColor(light,    10 * (modifier - 1)),
+    900: _shiftColor(light,    10 * modifier),
   };
 };
 

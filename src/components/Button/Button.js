@@ -32,6 +32,8 @@ const WrappedButton = props => {
       {...props}
       onClick={input => (document.activeElement.blur(), onClick(input))}
       onKeyDown={event => _refocusOnButton({ key: event.keyCode, button: document.activeElement })}
+      borderWidth='0 0 2px'
+      borderColor={color[100]}
       color={textColor[500]}
       _active={{
         background: color[500],
@@ -39,11 +41,13 @@ const WrappedButton = props => {
       }}
       _focus={{
         background: color[900],
+        borderColor: color[700],
         boxShadow: 'none',
         color: textColor[900],
       }}
       _hover={{
         background: color[800],
+        borderColor: color[600],
         // color: textColor[800],
         cursor: 'pointer',
       }}
