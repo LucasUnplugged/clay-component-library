@@ -8,6 +8,7 @@ import {
   text,
 } from '@storybook/addon-knobs';
 // import { ThemeProvider, theme } from '@chakra-ui/core';
+import { ButtonGroup } from '@chakra-ui/core';
 import Button from './Button';
 
 export default {
@@ -15,19 +16,33 @@ export default {
 };
 
 export const regular = () => {
-  const options = {
-    variantColor: [ 'primary', 'secondary', 'tertiary' ],
-  };
-  const defaultOptions = {
-    variantColor: 'primary',
-  };
+  // const options = {
+  //   variantColor: [ 'primary', 'secondary', 'tertiary' ],
+  // };
+  // const defaultOptions = {
+  //   variantColor: 'primary',
+  // };
   return (
-    <Button
-      onClick={action('clicked')}
-      variantColor={select('Color Variant', options.variantColor, defaultOptions.variantColor)}
-    >
-      Button
-    </Button>
+    <ButtonGroup>
+      <Button
+        onClick={action('clicked')}
+        variantColor='primary'
+      >
+        Button
+      </Button>
+      <Button
+        onClick={action('clicked')}
+        variantColor='secondary'
+      >
+        Button
+      </Button>
+      <Button
+        onClick={action('clicked')}
+        variantColor='tertiary'
+      >
+        Button
+      </Button>
+    </ButtonGroup>
   );
 };
 
