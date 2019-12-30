@@ -1,46 +1,28 @@
-export const shiftColor = (col, amt) => {
-    let usePound = false;
+import pSBC from 'shade-blend-color';
 
-    if (col[0] === '#') {
-        col = col.slice(1);
-        usePound = true;
-    }
-
-    let num = parseInt(col,16);
-    let r = (num >> 16) + amt;
-
-    if (r > 255) r = 255;
-    else if  (r < 0) r = 0;
-
-    let b = ((num >> 8) & 0x00FF) + amt;
-
-    if (b > 255) b = 255;
-    else if  (b < 0) b = 0;
-
-    let g = (num & 0x0000FF) + amt;
-
-    if (g > 255) g = 255;
-    else if (g < 0) g = 0;
-
-    return (usePound ? '#' : '') + (g | (b << 8) | (r << 16)).toString(16);
+const _componentToHex = component => {
+  var hex = component.toString(16);
+  return hex.length === 1 ? '0' + hex : hex;
 };
 
-export const generateColorOptions = ({ light, regular, dark }) => {
-  const hsp = getColorHSP(regular);
-  const modifier = hsp < 100 ? 2 : 1;
-  return {
-    50:  shiftColor(dark,    -20 * modifier),
-    100: shiftColor(dark,    -10 * modifier),
-    200: dark,
-    300: shiftColor(dark,     10),
-    400: shiftColor(regular, -10),
-    500: regular,
-    600: shiftColor(regular,  10),
-    700: shiftColor(light,    -10 * (2 - modifier)),
-    800: shiftColor(light,    10 * (modifier - 1)),
-    900: shiftColor(light,    10 * modifier),
-  };
-};
+export const shiftColor = ({ blendWith, color, convert, shiftBy}) => pSBC(
+  shiftBy,
+  color,
+  convert === true ? 'c' : blendWith
+);
+
+export const generateColorRange = color => ({
+  50:  shiftColor({ color, shiftBy: -0.55 }),
+  100: shiftColor({ color, shiftBy: -0.40 }),
+  200: shiftColor({ color, shiftBy: -0.30 }),
+  300: shiftColor({ color, shiftBy: -0.20 }),
+  400: shiftColor({ color, shiftBy: -0.10 }),
+  500: color,
+  600: shiftColor({ color, shiftBy: 0.09 }),
+  700: shiftColor({ color, shiftBy: 0.15 }),
+  800: shiftColor({ color, shiftBy: 0.20 }),
+  900: shiftColor({ color, shiftBy: 0.24 }),
+});
 
 export const getColorHSP = color => {
   // Variables for red, green, blue values
@@ -135,27 +117,24 @@ export const generateColors = inputColors => {
   // Calculate the named colors and the text that goes with each one
   colorNames.forEach(colorName => {
     const colorValues = inputColors[colorName];
-    const colorRange = generateColorOptions(colorValues);
-
+    const colorRange = generateColorRange(colorValues.regular);
     colors[colorName] = colorRange;
     colors.text[colorName] = {};
 
     Object.keys(colorRange).forEach(key => {
-      const color = colorRange[key];
-      const hsp = getColorHSP(color);
+      const colorValue = colorRange[key];
+      const hsp = getColorHSP(colorValue);
       if (hsp > 200) {
-        colors.text[colorName][key] = shiftColor(colorValues.dark, -30);
+        colors.text[colorName][key] = shiftColor({ color: colorValues.dark, shiftBy: -0.30 });
       } else if (hsp > 150) {
         colors.text[colorName][key] = black;
       } else if (hsp > 70) {
         colors.text[colorName][key] = white;
       } else {
-        colors.text[colorName][key] = shiftColor(colorValues.light, 100);
+        colors.text[colorName][key] = shiftColor({ color: colorValues.light, shiftBy: 1.00 });
       }
     });
   });
 
   return colors;
 };
-
-export default generateColors;

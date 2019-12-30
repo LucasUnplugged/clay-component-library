@@ -13411,6 +13411,11 @@ sha@^3.0.0:
   dependencies:
     graceful-fs "^4.1.2"
 
+shade-blend-color@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/shade-blend-color/-/shade-blend-color-1.0.0.tgz#cfa10d3673a22ba31d552a0e793b708bc24be0bc"
+  integrity sha512-Tnp/ppF5h3YhPCpeHiZJ2DRnvmo4luu9qpMhuksCT+QInIXJ9alA3Vd9klfEi+RY8Oh7MaK5vzH/qcLo892L1g==
+
 shallow-clone@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/shallow-clone/-/shallow-clone-0.1.2.tgz#5909e874ba77106d73ac414cfec1ffca87d97060"

@@ -8,6 +8,7 @@ const combinedTheme = _.merge(
   theme,
   clayTheme,
 );
+console.warn('combinedTheme', combinedTheme);
 
 const themeDecorator = storyFn => (
   <ThemeProvider theme={combinedTheme}>{storyFn()}</ThemeProvider>

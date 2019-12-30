@@ -1,7 +1,9 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import { Button, useTheme } from "@chakra-ui/core";
+import { Button, useTheme } from '@chakra-ui/core';
 
 let _refocusTimer;
 
@@ -28,6 +30,7 @@ const WrappedButton = props => {
   const theme = useTheme();
   const {
     button,
+    button: { css },
     colors,
   } = theme;
   const color = colors[variantColor];
@@ -35,24 +38,25 @@ const WrappedButton = props => {
   return (
     <Button
       {...props}
+      css={css}
       onClick={input => (document.activeElement.blur(), onClick(input))}
       onKeyDown={event => _refocusOnButton({ key: event.keyCode, button: document.activeElement })}
-      borderWidth={_.get(button, 'borderWidth')}
-      borderColor={color[100]}
-      color={textColor[500]}
+      borderColor={`${variantColor}.200`}
+      color={`text.${variantColor}.500`}
       _active={{
         background: color[500],
+        borderColor: color[400],
         color: textColor[500],
       }}
       _focus={{
-        background: color[900],
-        borderColor: color[700],
+        background: color[800],
+        borderColor: color[500],
         boxShadow: 'none',
-        color: textColor[900],
+        color: textColor[800],
       }}
       _hover={{
-        background: color[800],
-        borderColor: color[600],
+        background: color[700],
+        borderColor: color[400],
         // color: textColor[800],
         cursor: 'pointer',
       }}

@@ -1,8 +1,13 @@
-import generateColors from './index';
+import { generateColors } from '../utils/themeUtil';
 
 const clayTheme = {
   button: {
-    borderWidth: '0 0 2px',
+    css: {
+      borderWidth: '0 0 2px',
+      '&:active': {
+        borderWidth: '2px 0 0',
+      },
+    },
   },
   colors: generateColors({
     black: '#191715',
