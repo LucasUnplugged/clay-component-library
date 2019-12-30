@@ -1,6 +1,9 @@
 import generateColors from './index';
 
 const clayTheme = {
+  button: {
+    borderWidth: '0 0 2px',
+  },
   colors: generateColors({
     black: '#191715',
     white: '#ffffff',

@@ -7,12 +7,16 @@ import {
   select,
   text,
 } from '@storybook/addon-knobs';
-// import { ThemeProvider, theme } from '@chakra-ui/core';
+import { ThemeProvider, theme } from '@chakra-ui/core';
 import { ButtonGroup } from '@chakra-ui/core';
 import Button from './Button';
 
 export default {
+  component: Button,
   title: 'Button',
+  // decorators: [storyFn => (
+  //   <ThemeProvider theme={theme}>{storyFn()}</ThemeProvider>
+  // )],
 };
 
 export const regular = () => {
@@ -45,10 +49,6 @@ export const regular = () => {
     </ButtonGroup>
   );
 };
-
 regular.story = {
-  // decorators: [storyFn => (
-  //   <ThemeProvider theme={theme}>{storyFn()}</ThemeProvider>
-  // )],
   name: 'Regular Button',
 };

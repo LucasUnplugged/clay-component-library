@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import { Button, useTheme } from "@chakra-ui/core";
 
 let _refocusTimer;
@@ -25,14 +26,18 @@ const _refocusOnButton = ({ key, button, count = 0 }) => {
 const WrappedButton = props => {
   const { onClick, variantColor } = props;
   const theme = useTheme();
-  const color = theme.colors[variantColor];
-  const textColor = theme.colors.text[variantColor];
+  const {
+    button,
+    colors,
+  } = theme;
+  const color = colors[variantColor];
+  const textColor = colors.text[variantColor];
   return (
     <Button
       {...props}
       onClick={input => (document.activeElement.blur(), onClick(input))}
       onKeyDown={event => _refocusOnButton({ key: event.keyCode, button: document.activeElement })}
-      borderWidth='0 0 2px'
+      borderWidth={_.get(button, 'borderWidth')}
       borderColor={color[100]}
       color={textColor[500]}
       _active={{
