@@ -50,10 +50,10 @@ const WrappedButton = props => {
         color: textColor[500],
       }}
       _focus={{
-        background: color[800],
-        borderColor: color[500],
+        background: color[900],
+        borderColor: color[600],
         boxShadow: 'none',
-        color: textColor[800],
+        color: textColor[900],
       }}
       _hover={{
         background: color[700],
