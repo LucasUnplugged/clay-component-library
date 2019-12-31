@@ -23,55 +23,46 @@ export const shiftColor = ({
 export const generateColorRange = ({ blendWithDark, blendWithLight, color }) => ({
   50:  shiftColor({
     color: blendWithDark ? blendWithDark : color,
-    shiftBy: -0.60,
-    useLinerBlending: !!blendWithDark,
+    shiftBy: blendWithDark ? -0.45 : -0.55,
   }),
   100: shiftColor({
     color: blendWithDark ? blendWithDark : color,
-    shiftBy: -0.40,
-    useLinerBlending: !!blendWithDark,
+    shiftBy: blendWithDark ? -0.20 : -0.40,
   }),
   200: shiftColor({
     blendWith: blendWithDark,
     color,
     shiftBy: blendWithDark ? -1.00 : -0.30,
-    useLinerBlending: !!blendWithDark,
   }),
   300: shiftColor({
     blendWith: blendWithDark,
     color,
     shiftBy: blendWithDark ? -0.60 : -0.20,
-    useLinerBlending: !!blendWithDark,
   }),
   400: shiftColor({
     blendWith: blendWithDark,
     color,
     shiftBy: blendWithDark ? -0.30 : -0.10,
-    useLinerBlending: !!blendWithDark,
   }),
   500: color,
   600: shiftColor({
     blendWith: blendWithLight,
     color,
     shiftBy: blendWithLight ? 0.30 : 0.10,
-    useLinerBlending: !!blendWithLight,
   }),
   700: shiftColor({
     blendWith: blendWithLight,
     color,
     shiftBy: blendWithLight ? 0.60 : 0.20,
-    useLinerBlending: !!blendWithLight,
   }),
   800: shiftColor({
     blendWith: blendWithLight,
     color,
     shiftBy: blendWithLight ? 1.00 : 0.30,
-    useLinerBlending: !!blendWithLight,
   }),
   900: shiftColor({
     color: blendWithLight ? blendWithLight : color,
-    shiftBy: 0.30,
-    useLinerBlending: !!blendWithLight,
+    shiftBy: blendWithLight ? 0.20 : 0.40,
   }),
 });
 
