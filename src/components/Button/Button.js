@@ -35,6 +35,7 @@ const WrappedButton = props => {
   } = theme;
   const color = colors[variantColor];
   const textColor = colors.text[variantColor];
+  console.warn('color', color);
   return (
     <Button
       {...props}

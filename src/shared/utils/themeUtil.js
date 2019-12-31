@@ -5,23 +5,74 @@ const _componentToHex = component => {
   return hex.length === 1 ? '0' + hex : hex;
 };
 
-export const shiftColor = ({ blendWith, color, convert, shiftBy}) => pSBC(
+export const shiftColor = ({
+  blendWith,
+  color,
+  convert,
+  shiftBy,
+  useLinerBlending,
+}) => pSBC(
   shiftBy,
   color,
-  convert === true ? 'c' : blendWith
+  convert === true
+    ? 'c'
+    : blendWith ? blendWith : false,
+  useLinerBlending
 );
 
-export const generateColorRange = color => ({
-  50:  shiftColor({ color, shiftBy: -0.55 }),
-  100: shiftColor({ color, shiftBy: -0.40 }),
-  200: shiftColor({ color, shiftBy: -0.30 }),
-  300: shiftColor({ color, shiftBy: -0.20 }),
-  400: shiftColor({ color, shiftBy: -0.10 }),
+export const generateColorRange = ({ blendWithDark, blendWithLight, color }) => ({
+  50:  shiftColor({
+    color: blendWithDark ? blendWithDark : color,
+    shiftBy: -0.60,
+    useLinerBlending: !!blendWithDark,
+  }),
+  100: shiftColor({
+    color: blendWithDark ? blendWithDark : color,
+    shiftBy: -0.40,
+    useLinerBlending: !!blendWithDark,
+  }),
+  200: shiftColor({
+    blendWith: blendWithDark,
+    color,
+    shiftBy: blendWithDark ? -1.00 : -0.30,
+    useLinerBlending: !!blendWithDark,
+  }),
+  300: shiftColor({
+    blendWith: blendWithDark,
+    color,
+    shiftBy: blendWithDark ? -0.60 : -0.20,
+    useLinerBlending: !!blendWithDark,
+  }),
+  400: shiftColor({
+    blendWith: blendWithDark,
+    color,
+    shiftBy: blendWithDark ? -0.30 : -0.10,
+    useLinerBlending: !!blendWithDark,
+  }),
   500: color,
-  600: shiftColor({ color, shiftBy: 0.09 }),
-  700: shiftColor({ color, shiftBy: 0.15 }),
-  800: shiftColor({ color, shiftBy: 0.20 }),
-  900: shiftColor({ color, shiftBy: 0.24 }),
+  600: shiftColor({
+    blendWith: blendWithLight,
+    color,
+    shiftBy: blendWithLight ? 0.30 : 0.10,
+    useLinerBlending: !!blendWithLight,
+  }),
+  700: shiftColor({
+    blendWith: blendWithLight,
+    color,
+    shiftBy: blendWithLight ? 0.60 : 0.20,
+    useLinerBlending: !!blendWithLight,
+  }),
+  800: shiftColor({
+    blendWith: blendWithLight,
+    color,
+    shiftBy: blendWithLight ? 1.00 : 0.30,
+    useLinerBlending: !!blendWithLight,
+  }),
+  900: shiftColor({
+    color: blendWithLight ? blendWithLight : color,
+    shiftBy: 0.30,
+    useLinerBlending: !!blendWithLight,
+  }),
 });
 
 export const getColorHSP = color => {
@@ -117,7 +168,11 @@ export const generateColors = inputColors => {
   // Calculate the named colors and the text that goes with each one
   colorNames.forEach(colorName => {
     const colorValues = inputColors[colorName];
-    const colorRange = generateColorRange(colorValues.regular);
+    const colorRange = generateColorRange({
+      blendWithDark: colorValues.dark,
+      blendWithLight: colorValues.light,
+      color: colorValues.regular,
+    });
     colors[colorName] = colorRange;
     colors.text[colorName] = {};
 
