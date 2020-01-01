@@ -2,65 +2,23 @@
 import { jsx } from '@emotion/core'
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import { Button, useTheme } from '@chakra-ui/core';
+import { processThemeCSS } from '../../shared/utils/themeUtil';
 
-let _refocusTimer;
-
-const _refocusOnButton = ({ key, button, count = 0 }) => {
-  const actionKeys = [ 13, 32 ];
-  if (actionKeys.includes(key)) {
-    setTimeout(() => {
-      if (button && button.focus) {
-        if (document.activeElement === button && count < 200) {
-          clearTimeout(_refocusTimer);
-          _refocusTimer = setTimeout(() => {
-            _refocusOnButton({ key, button, count: count + 1 });
-          }, 25);
-        } else {
-          button.focus();
-        }
-      }
-    });
-  }
-};
+const _blurOnMouseUp = () => {
+  document.addEventListener('mouseup', () => document.activeElement.blur(), { once: true });
+}
 
 const WrappedButton = props => {
-  const { onClick, variantColor } = props;
+  const { onClick, variant, variantColor } = props;
   const theme = useTheme();
-  const {
-    button,
-    button: { css },
-    colors,
-  } = theme;
-  const color = colors[variantColor];
-  const textColor = colors.text[variantColor];
-  console.warn('color', color);
+  const { button = {} } = theme;
+  const css = processThemeCSS({ css: button[variant], props, theme });
   return (
     <Button
       {...props}
       css={css}
-      onClick={input => (document.activeElement.blur(), onClick(input))}
-      onKeyDown={event => _refocusOnButton({ key: event.keyCode, button: document.activeElement })}
-      borderColor={`${variantColor}.200`}
-      color={`text.${variantColor}.500`}
-      _active={{
-        background: color[500],
-        borderColor: color[400],
-        color: textColor[500],
-      }}
-      _focus={{
-        background: color[900],
-        borderColor: color[600],
-        boxShadow: 'none',
-        color: textColor[900],
-      }}
-      _hover={{
-        background: color[700],
-        borderColor: color[400],
-        // color: textColor[800],
-        cursor: 'pointer',
-      }}
+      onMouseDown={_blurOnMouseUp}
     />
   );
 };
@@ -68,10 +26,12 @@ const WrappedButton = props => {
 WrappedButton.propTypes = {
   children: PropTypes.node.isRequired,
   onClick: PropTypes.func.isRequired,
-  variantColor: PropTypes.oneOf([ 'primary', 'secondary', 'tertiary' ]),
+  variant: PropTypes.oneOf([ 'outline', 'ghost', 'unstyled', 'link', 'solid' ]),
+  variantColor: PropTypes.oneOf([ 'primary', 'secondary', 'tertiary', 'neutral' ]),
 };
 
 WrappedButton.defaultProps = {
+  variant: 'solid',
   variantColor: 'primary',
 };
 

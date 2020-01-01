@@ -2,10 +2,50 @@ import { generateColors } from '../utils/themeUtil';
 
 const clayTheme = {
   button: {
-    css: {
+    ghost: {},
+    link: {},
+    outline: {
+      borderColor: 'colors--#{variantColor}.200',
+      color: 'colors--#{variantColor}.400',
+      '&:active': {
+        background: 'colors--#{variantColor}.300',
+        borderColor: 'colors--#{variantColor}.300',
+        color: 'colors--text.#{variantColor}.300',
+      },
+      '&:focus': {
+        background: 'colors--#{variantColor}.900',
+        borderColor: 'colors--#{variantColor}.900',
+        boxShadow: 'none',
+        color: 'colors--text.#{variantColor}.900',
+      },
+      '&:hover': {
+        background: 'colors--#{variantColor}.500',
+        borderColor: 'colors--#{variantColor}.500',
+        color: 'colors--text.#{variantColor}.500',
+        cursor: 'pointer',
+      },
+    },
+    solid: {
       borderWidth: '0 0 2px',
+      borderColor: 'colors--#{variantColor}.200',
+      color: 'colors--text.#{variantColor}.500',
       '&:active': {
         borderWidth: '2px 0 0',
+        background: 'colors--#{variantColor}.500',
+        borderColor: 'colors--#{variantColor}.400',
+        color: 'colors--text.#{variantColor}.500',
+      },
+      '&:focus': {
+        background: 'colors--#{variantColor}.900',
+        borderColor: 'colors--#{variantColor}.600',
+        boxShadow: 'none',
+        color: 'colors--text.#{variantColor}.900',
+      },
+      '&:hover': {
+        background: 'colors--#{variantColor}.700',
+        borderColor: 'colors--#{variantColor}.400',
+        color: 'colors--text.#{variantColor}.500',
+        cursor: 'pointer',
       },
     },
   },

@@ -1,4 +1,5 @@
 import pSBC from 'shade-blend-color';
+import _ from 'lodash';
 
 const _componentToHex = component => {
   var hex = component.toString(16);
@@ -21,10 +22,7 @@ export const shiftColor = ({
 );
 
 export const generateColorRange = ({ blendWithDark, blendWithLight, color }) => {
-  const isBrightColor = blendWithLight && getColorHSP(blendWithLight) > 180;
-  if (isBrightColor) {
-    console.warn(blendWithLight, getColorHSP(blendWithLight));
-  }
+  const isBrightColor = blendWithLight && getColorHSP(blendWithLight) > 190;
   return {
     50:  shiftColor({
       color: blendWithDark ? blendWithDark : color,
@@ -191,4 +189,39 @@ export const generateColors = inputColors => {
   });
 
   return colors;
+};
+
+const _processThemeString = ({ props, string, theme }) => {
+  if (!_.isString(string)) {
+    return string;
+  }
+  const stringHasVariable = string.includes('--');
+  if (!stringHasVariable) {
+    return string;
+  }
+  string = string.replace(/--/g, '.');
+  string = _.replace(string, /#\{([^}]+)\}/g, input => {
+    const variableString = input.replace('#{', '').replace('}', '');
+    return _.get(props, variableString, '');
+  });
+  console.warn('string', string);
+  console.log('theme', theme);
+  return _.get(theme, string, '');
+};
+
+export const processThemeCSS = ({ css, props, theme }) => {
+  if (!css) {
+    return css;
+  } else if (_.isString(css)) {
+    return _processThemeString({ props, string: css, theme });
+  } else if (_.isPlainObject(css)) {
+    const output = {};
+    _.forEach(css, (propValue, propKey) => {
+      output[propKey] = _.isString(propValue)
+        ? _processThemeString({ props, string: propValue, theme })
+        : processThemeCSS({ css: propValue, props, theme });
+    });
+    return output;
+  }
+  return css;
 };
