@@ -195,18 +195,24 @@ const _processThemeString = ({ props, string, theme }) => {
   if (!_.isString(string)) {
     return string;
   }
-  const stringHasVariable = string.includes('--');
-  if (!stringHasVariable) {
+  const hasThemeVariable = string.includes('theme--');
+  const hasPropVariable = string.includes('#{');
+  if (!hasThemeVariable && !hasPropVariable) {
     return string;
   }
-  string = string.replace(/--/g, '.');
-  string = _.replace(string, /#\{([^}]+)\}/g, input => {
-    const variableString = input.replace('#{', '').replace('}', '');
-    return _.get(props, variableString, '');
-  });
-  console.warn('string', string);
-  console.log('theme', theme);
-  return _.get(theme, string, '');
+  // First, process prop variables
+  if (hasPropVariable) {
+    string = _.replace(string, /#\{([^}]+)\}/g, input => {
+      const variableString = input.replace('#{', '').replace('}', '');
+      return _.get(props, variableString, '');
+    });
+  }
+  // Then process the theme variable
+  if (hasThemeVariable) {
+    string = string.replace('theme--', '').replace(/--/g, '.');
+    string = _.get(theme, string, '');
+  }
+  return string;
 };
 
 export const processThemeCSS = ({ css, props, theme }) => {

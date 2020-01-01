@@ -30,6 +30,7 @@ export const regular = () => {
   };
   return (
     <Grid
+      p='12px'
       rowGap='12px'
       templateColumns='100%'
       templateRows='repeat(auto-fill, minmax(40px, 1fr))'
