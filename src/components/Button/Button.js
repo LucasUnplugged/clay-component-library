@@ -13,7 +13,10 @@ const WrappedButton = props => {
   const theme = useTheme();
   const { button = {} } = theme;
   const css = processThemeCSS({
-    css: button[variant],
+    css: {
+      ...button.base,
+      ...button[variant],
+    },
     props,
     theme,
   });

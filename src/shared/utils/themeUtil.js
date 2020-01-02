@@ -203,9 +203,10 @@ const _processThemeString = ({ props, string, theme }) => {
   if (!_.isString(string)) {
     return string;
   }
-  const hasThemeVariable = string.includes('theme--');
-  const hasPropVariable = string.includes('#{');
-  const hasColorModeVariable = string.includes('%[');
+  // These use different boundary characters because they can be nested
+  const hasThemeVariable = string.includes('!<'); // Bang variable syntax `!<>`
+  const hasPropVariable = string.includes('#{'); // Hash variable syntax `#{}`
+  const hasColorModeVariable = string.includes('%['); // Slash variable syntax `%[]` (multi-option)
   if (!hasThemeVariable && !hasPropVariable && !hasColorModeVariable) {
     return string;
   }
@@ -228,7 +229,10 @@ const _processThemeString = ({ props, string, theme }) => {
   // Finally, process the theme variable
   if (hasThemeVariable) {
     string = string.replace('theme--', '').replace(/--/g, '.');
-    string = _.get(theme, string, '');
+    string = _.replace(string, /!\<([^}]+)\>/g, input => {
+      const variableString = input.replace('!<', '').replace('>', '');
+      return _.get(theme, variableString, '');
+    });
   }
   console.log('string', string);
   return string;
