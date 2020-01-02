@@ -21,7 +21,7 @@ export default {
 
 export const regular = () => {
   const options = {
-    variant: ['outline', 'ghost', 'unstyled', 'link', 'solid'],
+    variant: ['outline', 'ghost', 'link', 'solid'],
     variantColor: [ 'primary', 'secondary', 'tertiary', 'neutral' ],
   };
   const defaultOptions = {

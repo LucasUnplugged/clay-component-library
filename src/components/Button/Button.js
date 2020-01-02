@@ -29,7 +29,7 @@ const WrappedButton = props => {
 WrappedButton.propTypes = {
   children: PropTypes.node.isRequired,
   onClick: PropTypes.func.isRequired,
-  variant: PropTypes.oneOf([ 'outline', 'ghost', 'unstyled', 'link', 'solid' ]),
+  variant: PropTypes.oneOf([ 'outline', 'ghost', 'link', 'solid' ]),
   variantColor: PropTypes.oneOf([ 'primary', 'secondary', 'tertiary', 'neutral' ]),
 };
 
