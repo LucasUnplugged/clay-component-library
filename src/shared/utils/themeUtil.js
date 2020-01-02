@@ -1,11 +1,6 @@
 import pSBC from 'shade-blend-color';
 import _ from 'lodash';
 
-const _componentToHex = component => {
-  var hex = component.toString(16);
-  return hex.length === 1 ? '0' + hex : hex;
-};
-
 export const shiftColor = ({
   blendWith,
   color,
@@ -110,6 +105,19 @@ export const getColorHSP = color => {
   return hsp;
 };
 
+const _componentToHex = component => {
+  var hex = component.toString(16);
+  return hex.length === 1 ? '0' + hex : hex;
+};
+
+export const rgbToHex = ({ r, g, b, noHash = false }) => {
+  let hex = noHash ? '' : '#';
+  hex += _componentToHex(parseInt(r, 10));
+  hex += _componentToHex(parseInt(g, 10));
+  hex += _componentToHex(parseInt(b, 10));
+  return hex;
+};
+
 export const hexToRgb = hex => {
   let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result ? {
@@ -178,7 +186,7 @@ export const generateColors = inputColors => {
       const hsp = getColorHSP(colorValue);
       if (hsp > 200) {
         colors.text[colorName][key] = shiftColor({ color: colorValues.dark, shiftBy: -0.30 });
-      } else if (hsp > 150) {
+      } else if (hsp > 130) {
         colors.text[colorName][key] = black;
       } else if (hsp > 70) {
         colors.text[colorName][key] = white;
@@ -197,7 +205,8 @@ const _processThemeString = ({ props, string, theme }) => {
   }
   const hasThemeVariable = string.includes('theme--');
   const hasPropVariable = string.includes('#{');
-  if (!hasThemeVariable && !hasPropVariable) {
+  const hasColorModeVariable = string.includes('%{');
+  if (!hasThemeVariable && !hasPropVariable && !hasColorModeVariable) {
     return string;
   }
   // First, process prop variables
@@ -207,11 +216,21 @@ const _processThemeString = ({ props, string, theme }) => {
       return _.get(props, variableString, '');
     });
   }
-  // Then process the theme variable
+  // Then, process any color mode variables
+  if (hasColorModeVariable) {
+    string = _.replace(string, /%\{([^}]+)\}/g, input => {
+      const variableString = input.replace('%{', '').replace('}', '');
+      const stringsByMode = variableString.split('/');
+      const colorMode = _.get(theme, 'colorMode', 'light').toLowerCase();
+      return colorMode === 'dark' ? stringsByMode[1] : stringsByMode[0];
+    });
+  }
+  // Finally, process the theme variable
   if (hasThemeVariable) {
     string = string.replace('theme--', '').replace(/--/g, '.');
     string = _.get(theme, string, '');
   }
+  console.log('string', string);
   return string;
 };
 

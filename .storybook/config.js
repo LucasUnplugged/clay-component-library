@@ -1,8 +1,9 @@
 import { addParameters, addDecorator, configure } from '@storybook/react';
 import themeDecorator from './themeDecorator';
 import { withA11y } from '@storybook/addon-a11y';
-import { withKnobs } from "@storybook/addon-knobs";
+import { withKnobs } from '@storybook/addon-knobs';
 import { DocsPage, DocsContainer } from '@storybook/addon-docs/blocks';
+import { themes } from '@storybook/theming';
 
 // DECORATORS /////////////////////////////////////////////////////////////////
 addDecorator(themeDecorator);
@@ -14,11 +15,17 @@ addDecorator(withA11y);
 addParameters({
   backgrounds: [
     { name: 'Grey (Light)', value: '#d6d3d0', default: true },
-    { name: 'Grey (Medium)', value: '#999590' },
-    { name: 'Grey (Dark)', value: '#66635f' },
+    { name: 'Grey (Medium)', value: '#8a8681' },
+    { name: 'Grey (Dark)', value: '#524f4c' },
     { name: 'Black', value: '#191715' },
     { name: 'White', value: '#fff' },
   ],
+  darkMode: {
+    // Override the default dark theme
+    dark: { ...themes.dark, appBg: '#191715' },
+    // Override the default light theme
+    light: { ...themes.normal, appBg: '#d6d3d0' },
+  },
   docs: {
     container: DocsContainer,
     page: DocsPage,

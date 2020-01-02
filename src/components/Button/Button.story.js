@@ -1,13 +1,13 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
 import {
-  boolean,
-  options,
-  number,
+  // boolean,
+  // options,
+  // number,
   select,
-  text,
+  // text,
 } from '@storybook/addon-knobs';
-import { ThemeProvider, theme } from '@chakra-ui/core';
+// import { ThemeProvider, theme } from '@chakra-ui/core';
 import { ButtonGroup, Grid } from '@chakra-ui/core';
 import Button from './Button';
 
@@ -71,12 +71,12 @@ export const regular = () => {
       </ButtonGroup>
       <ButtonGroup>
         <Button
-          leftIcon='email'
+          leftIcon='arrow-back'
           onClick={action('clicked')}
           variantColor={select('Variant Colour', options.variantColor, defaultOptions.variantColor)}
           variant={select('Variant', options.variant, defaultOptions.variant)}
         >
-          Email
+          Loading
         </Button>
         <Button
           rightIcon='arrow-forward'

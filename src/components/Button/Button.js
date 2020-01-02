@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, useTheme } from '@chakra-ui/core';
 import { processThemeCSS } from '../../shared/utils/themeUtil';
@@ -10,10 +9,14 @@ const _blurOnMouseUp = () => {
 }
 
 const WrappedButton = props => {
-  const { onClick, variant, variantColor } = props;
+  const { variant } = props;
   const theme = useTheme();
   const { button = {} } = theme;
-  const css = processThemeCSS({ css: button[variant], props, theme });
+  const css = processThemeCSS({
+    css: button[variant],
+    props,
+    theme,
+  });
   return (
     <Button
       {...props}
