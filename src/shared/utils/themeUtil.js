@@ -205,7 +205,7 @@ const _processThemeString = ({ props, string, theme }) => {
   }
   const hasThemeVariable = string.includes('theme--');
   const hasPropVariable = string.includes('#{');
-  const hasColorModeVariable = string.includes('%{');
+  const hasColorModeVariable = string.includes('%[');
   if (!hasThemeVariable && !hasPropVariable && !hasColorModeVariable) {
     return string;
   }
@@ -218,8 +218,8 @@ const _processThemeString = ({ props, string, theme }) => {
   }
   // Then, process any color mode variables
   if (hasColorModeVariable) {
-    string = _.replace(string, /%\{([^}]+)\}/g, input => {
-      const variableString = input.replace('%{', '').replace('}', '');
+    string = _.replace(string, /%\[([^}]+)\]/g, input => {
+      const variableString = input.replace('%[', '').replace(']', '');
       const stringsByMode = variableString.split('/');
       const colorMode = _.get(theme, 'colorMode', 'light').toLowerCase();
       return colorMode === 'dark' ? stringsByMode[1] : stringsByMode[0];
