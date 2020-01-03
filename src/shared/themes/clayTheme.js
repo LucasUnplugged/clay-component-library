@@ -1,7 +1,15 @@
 import { generateColors, getIcons } from '../utils/themeUtil';
 
 const clayTheme = {
-  icons: getIcons({ weight: 1.5 }),
+  icons: getIcons({
+    include: [
+      'FiMail',
+      'FiPhone',
+      'MdMailOutline',
+    ],
+    size: 24,
+    weight: 1,
+  }),
   button: {
     base: {
       fontWeight: '!<fontWeights.light>',

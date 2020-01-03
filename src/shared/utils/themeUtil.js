@@ -1,18 +1,69 @@
 import React from 'react';
 import _ from 'lodash';
-import * as Icons from 'react-feather';
+import * as AiIcons from 'react-icons/ai';
+import * as FaIcons from 'react-icons/fa'
+import * as FiIcons from 'react-icons/fi';
+import * as MdIcons from 'react-icons/md';
+import * as WiIcons from 'react-icons/wi';
 import pSBC from 'shade-blend-color';
 
-export const getIcons = ({ exclude = [], include, size, weight = 2 }) => {
-  const icons = {};
-  _.each(Icons, (Icon, name) => {
-    if (!exclude.includes(name) && (_.isEmpty(include) || include.includes(name))) {
-      icons[name] = {
-        path: <Icon size={size} strokeWidth={Math.max(0.75, Math.min(3, weight))} />,
-      };
+const ICON_LIBS = {
+  AiIcons: {
+    lib: AiIcons,
+    modifiers: { size: 1, weight: 3/4 },
+  },
+  FaIcons: {
+    lib: FaIcons,
+    modifiers: { size: 1, weight: 1/2 },
+  },
+  FiIcons: {
+    lib: FiIcons,
+    modifiers: { size: 1, weight: 1.5 },
+  },
+  MdIcons: {
+    lib: MdIcons,
+    modifiers: { size: 1, weight: 1/12 },
+  },
+  WiIcons: {
+    lib: WiIcons,
+    modifiers: { size: 1, weight: 1/12 },
+  },
+};
+
+const _normalizeIconStyle = ({ libName, size, weight }) => {
+  const MIN_WEIGHT = 1/12;
+  const MAX_WEIGHT = 3;
+  const mod = _.get(ICON_LIBS, `${libName}.modifiers`);
+  return mod
+    ? {
+      size: size * mod.size,
+      weight: Math.max(MIN_WEIGHT, Math.min(MAX_WEIGHT, weight * mod.weight)),
     }
+    : { size, weight: Math.max(MIN_WEIGHT, Math.min(MAX_WEIGHT, weight)) };
+};
+
+export const getIcons = ({
+  exclude = [],
+  include,
+  size: sourceSize = 24,
+  weight: sourceWeight = 1,
+}) => {
+  const icons = {};
+  _.each(ICON_LIBS, ({ lib }, libName) => {
+    _.each(lib, (Icon, name) => {
+      const isFallbackIcon = libName === 'AiIcons' && name === 'AiOutlineQuestion';
+      const canBeIncluded = !exclude.includes(name) && (_.isEmpty(include) || include.includes(name));
+      if (isFallbackIcon || canBeIncluded) {
+        const { size, weight } = _normalizeIconStyle({ libName, size: sourceSize, weight: sourceWeight });
+        icons[name] = {
+          path: <Icon size={size} strokeWidth={weight} />,
+        };
+        if (isFallbackIcon) {
+          icons['question-outline'] = icons[name]; // This is the fallback in Chakra UI
+        }
+      }
+    });
   });
-  console.warn('icons', icons);
   return icons;
 };
 

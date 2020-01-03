@@ -20,10 +20,10 @@ const _setColorMode = colorMode => {
 const combinedTheme = _.merge(
   {},
   theme,
-  { icons: null },
+  { icons: null }, // Remove Chakra UI icons, as they throw errors
   clayTheme,
 );
-console.warn('combinedTheme', combinedTheme);
+console.log('combinedTheme', combinedTheme);
 
 const themeDecorator = (storyFn, context) => {
   const storyWithKnobs = withKnobs(storyFn, context) // explicitly add withKnobs

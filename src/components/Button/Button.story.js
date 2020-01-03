@@ -67,7 +67,7 @@ storiesOf('Button', module)
           </ButtonGroup>
           <ButtonGroup>
             <Button
-              leftIcon='Mail'
+              leftIcon='FiMail'
               onClick={action('clicked')}
               variantColor={select('Variant Colour', options.variantColor, defaultOptions.variantColor)}
               variant={select('Variant', options.variant, defaultOptions.variant)}
@@ -75,7 +75,7 @@ storiesOf('Button', module)
               Email
             </Button>
             <Button
-              rightIcon='Phone'
+              rightIcon='FiPhone'
               onClick={action('clicked')}
               variantColor={select('Variant Colour', options.variantColor, defaultOptions.variantColor)}
               variant={select('Variant', options.variant, defaultOptions.variant)}
