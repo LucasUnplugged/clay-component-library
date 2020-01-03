@@ -31,6 +31,11 @@ const clayTheme = {
         background: '%[!<colors.#{variantColor}.300>/!<colors.tertiary.600>]',
         color: '%[!<colors.text.#{variantColor}.300>/!<colors.text.tertiary.600>]',
       },
+      '&:disabled, &:disabled:hover': {
+        background: 'none',
+        color: '%[!<colors.neutral.200>/!<colors.neutral.900>]',
+        opacity: 1,
+      },
     },
     link: {
       borderBottomColor: 'transparent',
@@ -38,36 +43,30 @@ const clayTheme = {
       borderRadius: 0,
       color: '%[!<colors.#{variantColor}.400>/!<colors.tertiary.900>]',
       cursor: 'pointer',
-      '&:hover': {
+      '&:hover, &:focus, &:active': {
         background: 'none',
-        borderBottomColor: '%[!<colors.#{variantColor}.300>/!<colors.tertiary.900>]',
-        color: '%[!<colors.#{variantColor}.300>/!<colors.tertiary.900>]',
+        boxShadow: 'none',
         textDecoration: 'none',
       },
-      '&:focus': {
-        background: 'none',
+      '&:hover, &:focus': {
         borderBottomColor: '%[!<colors.#{variantColor}.300>/!<colors.tertiary.900>]',
-        boxShadow: 'none',
         color: '%[!<colors.#{variantColor}.300>/!<colors.tertiary.900>]',
-        textDecoration: 'none',
       },
       '&:active': {
-        background: 'none',
         borderBottomColor: '%[!<colors.#{variantColor}.100>/!<colors.tertiary.800>]',
         color: '%[!<colors.#{variantColor}.100>/!<colors.tertiary.800>]',
-        textDecoration: 'none',
+      },
+      '&:disabled, &:disabled:hover': {
+        borderBottomColor: 'transparent',
+        color: '%[!<colors.neutral.200>/!<colors.neutral.900>]',
+        opacity: 1,
       },
     },
     outline: {
       borderColor: '%[!<colors.#{variantColor}.400>/!<colors.tertiary.900>]',
       color: '%[!<colors.#{variantColor}.400>/!<colors.tertiary.900>]',
       cursor: 'pointer',
-      '&:hover': {
-        background: '%[!<colors.#{variantColor}.500>/!<colors.tertiary.800>]',
-        borderColor: '%[!<colors.#{variantColor}.500>/!<colors.tertiary.800>]',
-        color: '%[!<colors.text.#{variantColor}.500>/!<colors.text.tertiary.800>]',
-      },
-      '&:focus': {
+      '&:hover, &:focus': {
         background: '%[!<colors.#{variantColor}.500>/!<colors.tertiary.800>]',
         borderColor: '%[!<colors.#{variantColor}.500>/!<colors.tertiary.800>]',
         boxShadow: 'none',
@@ -77,6 +76,12 @@ const clayTheme = {
         background: '%[!<colors.#{variantColor}.300>/!<colors.tertiary.600>]',
         borderColor: '%[!<colors.#{variantColor}.300>/!<colors.tertiary.600>]',
         color: '%[!<colors.text.#{variantColor}.300>/!<colors.text.tertiary.600>]',
+      },
+      '&:disabled, &:disabled:hover': {
+        background: 'none',
+        borderColor: '%[!<colors.neutral.200>/!<colors.neutral.900>]',
+        color: '%[!<colors.neutral.200>/!<colors.neutral.900>]',
+        opacity: 1,
       },
     },
     solid: {
@@ -101,6 +106,12 @@ const clayTheme = {
         borderColor: '!<colors.#{variantColor}.%[200/500]>',
         borderWidth: '2px 0 0',
         color: '!<colors.text.#{variantColor}.%[500/800]>',
+      },
+      '&:disabled, &:disabled:hover': {
+        background: '%[!<colors.neutral.600>/!<colors.neutral.800>]',
+        borderColor: '%[!<colors.neutral.400>/!<colors.neutral.600>]',
+        color: '%[!<colors.text.neutral.600>/!<colors.text.neutral.800>]',
+        opacity: 1,
       },
     },
   },

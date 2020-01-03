@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import {
-  // boolean,
+  boolean,
   // options,
   // number,
   select,
@@ -33,6 +33,7 @@ storiesOf('Button', module)
         >
           <ButtonGroup>
             <Button
+              isLoading={boolean('Show Loading State')}
               onClick={action('clicked')}
               size='xs'
               variantColor={select('Variant Colour', options.variantColor, defaultOptions.variantColor)}
@@ -41,6 +42,8 @@ storiesOf('Button', module)
               Button
             </Button>
             <Button
+              isLoading={boolean('Show Loading State')}
+              loadingText='Loading…'
               onClick={action('clicked')}
               size='sm'
               variantColor={select('Variant Colour', options.variantColor, defaultOptions.variantColor)}
@@ -49,6 +52,7 @@ storiesOf('Button', module)
               Button
             </Button>
             <Button
+              isLoading={boolean('Show Loading State')}
               onClick={action('clicked')}
               size='md'
               variantColor={select('Variant Colour', options.variantColor, defaultOptions.variantColor)}
@@ -57,6 +61,8 @@ storiesOf('Button', module)
               Button
             </Button>
             <Button
+              isLoading={boolean('Show Loading State')}
+              loadingText='Loading…'
               onClick={action('clicked')}
               size='lg'
               variantColor={select('Variant Colour', options.variantColor, defaultOptions.variantColor)}
@@ -68,6 +74,8 @@ storiesOf('Button', module)
           <ButtonGroup>
             <Button
               leftIcon='FiMail'
+              isLoading={boolean('Show Loading State')}
+              loadingText='Fetching…'
               onClick={action('clicked')}
               variantColor={select('Variant Colour', options.variantColor, defaultOptions.variantColor)}
               variant={select('Variant', options.variant, defaultOptions.variant)}
@@ -76,11 +84,33 @@ storiesOf('Button', module)
             </Button>
             <Button
               rightIcon='FiPhone'
+              isLoading={boolean('Show Loading State')}
+              loadingText='Fetching…'
               onClick={action('clicked')}
               variantColor={select('Variant Colour', options.variantColor, defaultOptions.variantColor)}
               variant={select('Variant', options.variant, defaultOptions.variant)}
             >
               Call us
+            </Button>
+          </ButtonGroup>
+          <ButtonGroup>
+            <Button
+              isLoading={boolean('Show Loading State')}
+              loadingText='Cancelling…'
+              onClick={action('clicked')}
+              variantColor={select('Variant Colour', options.variantColor, defaultOptions.variantColor)}
+              variant='ghost'
+            >
+              Cancel
+            </Button>
+            <Button
+              isLoading={boolean('Show Loading State')}
+              loadingText='Saving…'
+              onClick={action('clicked')}
+              variantColor={select('Variant Colour', options.variantColor, defaultOptions.variantColor)}
+              variant='solid'
+            >
+              Save
             </Button>
           </ButtonGroup>
         </Grid>
