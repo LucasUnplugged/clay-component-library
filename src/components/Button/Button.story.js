@@ -108,7 +108,7 @@ storiesOf('Button', module)
               loadingText='Saving…'
               onClick={action('clicked')}
               variantColor={select('Variant Colour', options.variantColor, defaultOptions.variantColor)}
-              variant='solid'
+              variant={select('Variant', options.variant, defaultOptions.variant)}
             >
               Save
             </Button>
