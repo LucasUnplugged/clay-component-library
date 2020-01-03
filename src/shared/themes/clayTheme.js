@@ -1,6 +1,7 @@
-import { generateColors } from '../utils/themeUtil';
+import { generateColors, getIcons } from '../utils/themeUtil';
 
 const clayTheme = {
+  icons: getIcons({ weight: 1.5 }),
   button: {
     base: {
       fontWeight: '!<fontWeights.light>',

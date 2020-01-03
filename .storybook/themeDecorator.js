@@ -20,7 +20,7 @@ const _setColorMode = colorMode => {
 const combinedTheme = _.merge(
   {},
   theme,
-  // { icons: null },
+  { icons: null },
   clayTheme,
 );
 console.warn('combinedTheme', combinedTheme);

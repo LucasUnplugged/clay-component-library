@@ -13,6 +13,7 @@ const Button = forwardRef((props, ref) => {
   const { button = {} } = theme;
   const css = processThemeCSS({
     css: {
+      transition: 'all 0.25s, border 0s, line-height 0s',
       ...button.base,
       ...button[variant],
     },

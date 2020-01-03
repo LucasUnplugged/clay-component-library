@@ -1,5 +1,20 @@
-import pSBC from 'shade-blend-color';
+import React from 'react';
 import _ from 'lodash';
+import * as Icons from 'react-feather';
+import pSBC from 'shade-blend-color';
+
+export const getIcons = ({ exclude = [], include, size, weight = 2 }) => {
+  const icons = {};
+  _.each(Icons, (Icon, name) => {
+    if (!exclude.includes(name) && (_.isEmpty(include) || include.includes(name))) {
+      icons[name] = {
+        path: <Icon size={size} strokeWidth={Math.max(0.75, Math.min(3, weight))} />,
+      };
+    }
+  });
+  console.warn('icons', icons);
+  return icons;
+};
 
 export const shiftColor = ({
   blendWith,
