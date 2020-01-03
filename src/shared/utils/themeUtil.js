@@ -229,12 +229,11 @@ const _processThemeString = ({ props, string, theme }) => {
   // Finally, process the theme variable
   if (hasThemeVariable) {
     string = string.replace('theme--', '').replace(/--/g, '.');
-    string = _.replace(string, /!\<([^}]+)\>/g, input => {
+    string = _.replace(string, /!<([^}]+)>/g, input => {
       const variableString = input.replace('!<', '').replace('>', '');
       return _.get(theme, variableString, '');
     });
   }
-  console.log('string', string);
   return string;
 };
 

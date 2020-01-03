@@ -89,7 +89,7 @@ const clayTheme = {
       },
       '&:active': {
         background: '!<colors.#{variantColor}.%[500/800]>',
-        borderColor: '!<colors.#{variantColor}.%[400/700]>',
+        borderColor: '!<colors.#{variantColor}.%[300/500]>',
         borderWidth: '2px 0 0',
         color: '!<colors.text.#{variantColor}.%[500/800]>',
       },
