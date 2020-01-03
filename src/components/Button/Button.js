@@ -1,14 +1,13 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
+import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
-import { Button, useTheme } from '@chakra-ui/core';
+import { Button as InnerButton, useTheme } from '@chakra-ui/core';
 import { processThemeCSS } from '../../shared/utils/themeUtil';
 
-const _blurOnMouseUp = () => {
-  document.addEventListener('mouseup', () => document.activeElement.blur(), { once: true });
-}
+const _blurOnMouseUp = () => document.addEventListener('mouseup', () => document.activeElement.blur(), { once: true });
 
-const WrappedButton = props => {
+const Button = forwardRef((props, ref) => {
   const { variant } = props;
   const theme = useTheme();
   const { button = {} } = theme;
@@ -21,24 +20,35 @@ const WrappedButton = props => {
     theme,
   });
   return (
-    <Button
+    <InnerButton
       {...props}
       css={css}
+      inputRef={ref}
       onMouseDown={_blurOnMouseUp}
     />
   );
-};
+});
+export default Button;
 
-WrappedButton.propTypes = {
+
+// STORYBOOK META DATA ////////////////////////////////////////////////////////
+/** A basic, customizable button. */
+class Meta { render() { return } } export { Meta };
+Meta.propTypes = {
+  /** The inner contents of the button */
   children: PropTypes.node.isRequired,
+  /** Triggered by pressing the button */
   onClick: PropTypes.func.isRequired,
+  /** The variant to use */
   variant: PropTypes.oneOf([ 'outline', 'ghost', 'link', 'solid' ]),
+  /** Color scheme to use */
   variantColor: PropTypes.oneOf([ 'primary', 'secondary', 'tertiary', 'neutral' ]),
 };
-
-WrappedButton.defaultProps = {
+Meta.defaultProps = {
   variant: 'solid',
   variantColor: 'primary',
 };
 
-export default WrappedButton;
+// COMPONENT PROPS ////////////////////////////////////////////////////////////
+Button.propTypes = Meta.propTypes;
+Button.defaultProps = Meta.defaultProps;
