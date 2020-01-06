@@ -8,9 +8,12 @@ import {
   select,
   // text,
 } from '@storybook/addon-knobs';
-import { ButtonGroup, Grid } from '@chakra-ui/core';
+import {
+  ButtonGroup,
+  Grid,
+  Heading,
+} from '@chakra-ui/core';
 import Button, { Meta } from './Button';
-// import { ThemeProvider, theme } from '@chakra-ui/core';
 
 storiesOf('Button', module)
   .add(
@@ -26,12 +29,15 @@ storiesOf('Button', module)
       };
       return (
         <Grid
-          p='12px'
-          rowGap='12px'
+          p='24px'
+          rowGap='36px'
           templateColumns='100%'
           templateRows='repeat(auto-fill, minmax(40px, 1fr))'
         >
           <ButtonGroup>
+            <Heading as='h2' size='lg' fontWeight='normal' color='neutral.200' mb={4}>
+              Button Sizing
+            </Heading>
             <Button
               isLoading={boolean('Show Loading State')}
               onClick={action('clicked')}
@@ -71,7 +77,11 @@ storiesOf('Button', module)
               Button
             </Button>
           </ButtonGroup>
+
           <ButtonGroup>
+            <Heading as='h2' size='lg' fontWeight='normal' color='neutral.200' mb={4}>
+              Icon Buttons
+            </Heading>
             <Button
               leftIcon='FiMail'
               isLoading={boolean('Show Loading State')}
@@ -93,7 +103,11 @@ storiesOf('Button', module)
               Call us
             </Button>
           </ButtonGroup>
+
           <ButtonGroup>
+            <Heading as='h2' size='lg' fontWeight='normal' color='neutral.200' mb={4}>
+              Prioritizing Via Emphasis
+            </Heading>
             <Button
               isLoading={boolean('Show Loading State')}
               loadingText='Cancelling…'

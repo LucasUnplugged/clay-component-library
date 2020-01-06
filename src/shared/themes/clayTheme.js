@@ -12,15 +12,16 @@ const clayTheme = {
   }),
   button: {
     base: {
+      cursor: 'pointer',
       fontWeight: '!<fontWeights.light>',
     },
     ghost: {
       borderWidth: 0,
       color: '%[!<colors.#{variantColor}.400>/!<colors.tertiary.900>]',
-      cursor: 'pointer',
+      fontWeight: '!<fontWeights.normal>',
       '&:hover': {
-        background: '%[!<colors.#{variantColor}.400>/!<colors.tertiary.900>]',
-        color: '%[!<colors.text.#{variantColor}.400>/!<colors.text.tertiary.900>]',
+        background: '%[!<colors.#{variantColor}.400>/!<colors.tertiary.800>]',
+        color: '%[!<colors.text.#{variantColor}.400>/!<colors.text.tertiary.800>]',
       },
       '&:focus': {
         background: '%[!<colors.#{variantColor}.500>/!<colors.tertiary.800>]',
@@ -42,7 +43,7 @@ const clayTheme = {
       borderBottomWidth: '1px',
       borderRadius: 0,
       color: '%[!<colors.#{variantColor}.400>/!<colors.tertiary.900>]',
-      cursor: 'pointer',
+      fontWeight: '!<fontWeights.normal>',
       '&:hover, &:focus, &:active': {
         background: 'none',
         boxShadow: 'none',
@@ -65,7 +66,7 @@ const clayTheme = {
     outline: {
       borderColor: '%[!<colors.#{variantColor}.400>/!<colors.tertiary.900>]',
       color: '%[!<colors.#{variantColor}.400>/!<colors.tertiary.900>]',
-      cursor: 'pointer',
+      fontWeight: '!<fontWeights.normal>',
       '&:hover, &:focus': {
         background: '%[!<colors.#{variantColor}.500>/!<colors.tertiary.800>]',
         borderColor: '%[!<colors.#{variantColor}.500>/!<colors.tertiary.800>]',
@@ -85,27 +86,26 @@ const clayTheme = {
       },
     },
     solid: {
-      background: '!<colors.#{variantColor}.%[500/900]>',
-      borderColor: '!<colors.#{variantColor}.%[200/700]>',
+      background: '%[!<colors.#{variantColor}.500>/!<colors.tertiary.800>]',
+      borderColor: '%[!<colors.#{variantColor}.200>/!<colors.tertiary.600>]',
       borderWidth: '0 0 2px',
-      color: '!<colors.text.#{variantColor}.%[500/900]>',
-      cursor: 'pointer',
+      color: '%[!<colors.text.#{variantColor}.500>/!<colors.text.tertiary.800>]',
       '&:hover': {
-        background: '!<colors.#{variantColor}.%[700/800]>',
-        borderColor: '!<colors.#{variantColor}.%[400/600]>',
-        color: '!<colors.text.#{variantColor}.%[500/900]>',
+        background: '%[!<colors.#{variantColor}.700>/!<colors.tertiary.700>]',
+        borderColor: '%[!<colors.#{variantColor}.400>/!<colors.tertiary.500>]',
+        color: '%[!<colors.text.#{variantColor}.500>/!<colors.text.tertiary.800>]',
       },
       '&:focus': {
-        background: '!<colors.#{variantColor}.%[900/600]>',
-        borderColor: '!<colors.#{variantColor}.%[600/300]>',
+        background: '%[!<colors.#{variantColor}.900>/!<colors.tertiary.600>]',
+        borderColor: '%[!<colors.#{variantColor}.600>/!<colors.tertiary.300>]',
         boxShadow: 'none',
-        color: '!<colors.text.#{variantColor}.%[900/600]>',
+        color: '%[!<colors.text.#{variantColor}.900>/!<colors.text.tertiary.600>]',
       },
       '&:active': {
-        background: '!<colors.#{variantColor}.%[500/800]>',
-        borderColor: '!<colors.#{variantColor}.%[200/500]>',
+        background: '%[!<colors.#{variantColor}.400>/!<colors.tertiary.600>]',
+        borderColor: '%[!<colors.#{variantColor}.200>/!<colors.tertiary.300>]',
         borderWidth: '2px 0 0',
-        color: '!<colors.text.#{variantColor}.%[500/800]>',
+        color: '%[!<colors.text.#{variantColor}.400>/!<colors.text.tertiary.600>]',
       },
       '&:disabled, &:disabled:hover': {
         background: '%[!<colors.neutral.600>/!<colors.neutral.800>]',
