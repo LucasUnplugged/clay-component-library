@@ -5,7 +5,8 @@ import {
   theme,
   ThemeProvider,
 } from '@chakra-ui/core';
-import { getClayTheme } from '../src/shared/themes/clayTheme';
+import clayTheme from '../src/shared/themes/clayTheme';
+import { getIcons } from '../src/shared/utils/themeUtil';
 import { select, withKnobs } from '@storybook/addon-knobs';
 import { forceReRender } from '@storybook/react';
 import { Global, css } from '@emotion/core'
@@ -28,13 +29,18 @@ const themeDecorator = (storyFn, context) => {
     { colorMode },
     theme,
     { icons: null }, // Remove Chakra UI icons, as they throw errors
-    getClayTheme({
-      includeIcons: [
-        'FiMail',
-        'FiPhone',
-        'MdMailOutline',
-      ],
-    }),
+    clayTheme,
+    {
+      icons: getIcons({
+        include: [
+          'FiMail',
+          'FiPhone',
+          'MdMailOutline',
+        ],
+        size: 24,
+        weight: 1,
+      }),
+    }
   );
   console.log('combinedTheme', combinedTheme);
 
