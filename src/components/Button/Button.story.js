@@ -11,9 +11,9 @@ import {
 import {
   ButtonGroup,
   Grid,
-  Heading,
 } from '@chakra-ui/core';
 import Button, { Meta } from './Button';
+import { Heading } from '../index';
 
 storiesOf('Button', module)
   .add(

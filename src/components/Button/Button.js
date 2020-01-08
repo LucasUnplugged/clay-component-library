@@ -37,7 +37,7 @@ export default Button;
 class Meta { render() { return } } export { Meta };
 Meta.propTypes = {
   /** The inner contents of the button */
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   /** Whether the button is in a loading (inactive) state */
   isLoading: PropTypes.bool,
   /** Name of an icon to show on the left side of the content */
@@ -54,6 +54,7 @@ Meta.propTypes = {
   variantColor: PropTypes.oneOf([ 'primary', 'secondary', 'tertiary', 'neutral' ]),
 };
 Meta.defaultProps = {
+  children: null,
   isLoading: false,
   leftIcon: null,
   loadingText: null,
