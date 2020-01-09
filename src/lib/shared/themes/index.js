@@ -2,8 +2,8 @@ import React from 'react';
 import _ from 'lodash';
 import {
   CSSReset,
-  theme: chakraTheme,
-  ThemeProvider: ChakraThemeProvider,
+  theme as chakraTheme,
+  ThemeProvider as ChakraThemeProvider,
 } from '@chakra-ui/core';
 import { getIcons } from '../utils/themeUtil';
 import clayTheme from './clayTheme';

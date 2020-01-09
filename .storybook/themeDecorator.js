@@ -5,8 +5,8 @@ import {
   theme,
   ThemeProvider,
 } from '@chakra-ui/core';
-import clayTheme from '../src/shared/themes/clayTheme';
-import { getIcons } from '../src/shared/utils/themeUtil';
+import clayTheme from '../src/lib/shared/themes/clayTheme';
+import { getIcons } from '../src/lib/shared/utils/themeUtil';
 import { select, withKnobs } from '@storybook/addon-knobs';
 import { forceReRender } from '@storybook/react';
 import { Global, css } from '@emotion/core'

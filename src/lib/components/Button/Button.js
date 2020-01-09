@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
+import React from 'react';
 import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Button as InnerButton, useTheme } from '@chakra-ui/core';

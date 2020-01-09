@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
+import React from 'react';
 import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Heading as InnerHeading, useTheme } from '@chakra-ui/core';
