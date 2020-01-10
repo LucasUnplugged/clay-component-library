@@ -117,7 +117,7 @@ export default {
       minWidth: 0,
       '&:hover': {
         borderBottomColor: 'transparent',
-        color: '%[!<colors.#{variantColor}.200>/!<colors.white>]',
+        color: '%[!<colors.#{variantColor}.100>/!<colors.white>]',
       },
       '&:focus': {
         borderBottomColor: 'transparent',

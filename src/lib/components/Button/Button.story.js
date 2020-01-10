@@ -13,7 +13,7 @@ import {
   Grid,
 } from '@chakra-ui/core';
 import Button, { Meta } from './Button';
-import { Heading } from '../index';
+import { Heading, IconButton } from '../index';
 
 storiesOf('Button', module)
   .add(
@@ -108,6 +108,14 @@ storiesOf('Button', module)
             >
               Call us
             </Button>
+            <IconButton
+              icon='FiInfo'
+              disabled={boolean('Show Disabled State')}
+              isLoading={boolean('Show Loading State')}
+              onClick={action('clicked')}
+              variantColor={select('Variant Colour', options.variantColor, defaultOptions.variantColor)}
+              variant={select('Variant', options.variant, defaultOptions.variant)}
+            />
           </ButtonGroup>
 
           <ButtonGroup>
