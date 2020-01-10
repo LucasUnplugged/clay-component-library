@@ -52,6 +52,7 @@ export const getIcons = ({
   _.each(ICON_LIBS, ({ lib }, libName) => {
     _.each(lib, (Icon, name) => {
       const isFallbackIcon = libName === 'AiIcons' && name === 'AiOutlineQuestion';
+      const isCloseIcon = libName === 'FiIcons' && name === 'FiX';
       const canBeIncluded = !exclude.includes(name) && (_.isEmpty(include) || include.includes(name));
       if (isFallbackIcon || canBeIncluded) {
         const { size, weight } = _normalizeIconStyle({ libName, size: sourceSize, weight: sourceWeight });
@@ -60,6 +61,9 @@ export const getIcons = ({
         };
         if (isFallbackIcon) {
           icons['question-outline'] = icons[name]; // This is the fallback in Chakra UI
+        }
+        if (isCloseIcon) {
+          icons.close = icons[name]; // This is the hardcoded close icon for CloseButton
         }
       }
     });

@@ -5,10 +5,12 @@ import { Heading as InnerHeading, useTheme } from '@chakra-ui/core';
 import { processThemeCSS } from '../../shared/utils/themeUtil';
 
 const Heading = forwardRef((props, ref) => {
+  const { css: propsCss } = props;
   const theme = useTheme();
   const { heading = {} } = theme;
   const css = processThemeCSS({
     css: {
+      ...propsCss,
       ...heading.base,
     },
     props,
@@ -18,7 +20,7 @@ const Heading = forwardRef((props, ref) => {
     <InnerHeading
       {...props}
       css={css}
-      inputRef={ref}
+      ref={ref}
     />
   );
 });

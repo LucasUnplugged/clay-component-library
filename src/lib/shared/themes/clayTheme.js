@@ -28,7 +28,7 @@ export default {
         background: '%[!<colors.#{variantColor}.300>/!<colors.tertiary.600>]',
         color: '%[!<colors.text.#{variantColor}.300>/!<colors.text.tertiary.600>]',
       },
-      '&:disabled, &:disabled:hover': {
+      '&:disabled, &[aria-disabled=true], &:disabled:hover, &[aria-disabled=true]:hover': {
         background: 'none',
         color: '%[!<colors.neutral.200>/!<colors.neutral.900>]',
         opacity: 1,
@@ -53,7 +53,7 @@ export default {
         borderBottomColor: '%[!<colors.#{variantColor}.100>/!<colors.tertiary.800>]',
         color: '%[!<colors.#{variantColor}.100>/!<colors.tertiary.800>]',
       },
-      '&:disabled, &:disabled:hover': {
+      '&:disabled, &[aria-disabled=true], &:disabled:hover, &[aria-disabled=true]:hover': {
         borderBottomColor: 'transparent',
         color: '%[!<colors.neutral.200>/!<colors.neutral.900>]',
         opacity: 1,
@@ -74,7 +74,7 @@ export default {
         borderColor: '%[!<colors.#{variantColor}.300>/!<colors.tertiary.600>]',
         color: '%[!<colors.text.#{variantColor}.300>/!<colors.text.tertiary.600>]',
       },
-      '&:disabled, &:disabled:hover': {
+      '&:disabled, &[aria-disabled=true], &:disabled:hover, &[aria-disabled=true]:hover': {
         background: 'none',
         borderColor: '%[!<colors.neutral.200>/!<colors.neutral.900>]',
         color: '%[!<colors.neutral.200>/!<colors.neutral.900>]',
@@ -103,7 +103,7 @@ export default {
         borderWidth: '2px 0 0',
         color: '%[!<colors.text.#{variantColor}.400>/!<colors.text.tertiary.600>]',
       },
-      '&:disabled, &:disabled:hover': {
+      '&:disabled, &[aria-disabled=true], &:disabled:hover, &[aria-disabled=true]:hover': {
         background: '%[!<colors.neutral.600>/!<colors.neutral.800>]',
         borderColor: '%[!<colors.neutral.400>/!<colors.neutral.600>]',
         color: '%[!<colors.text.neutral.600>/!<colors.text.neutral.800>]',

@@ -36,6 +36,8 @@ const themeDecorator = (storyFn, context) => {
           'FiMail',
           'FiPhone',
           'MdMailOutline',
+          'FiInfo',
+          'FiX',
         ],
         size: 24,
         weight: 1,

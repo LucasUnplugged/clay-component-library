@@ -1,9 +1,9 @@
 {
   "name": "clay-component-library",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Component library for Clay",
-  "main": "./dist/lib/index.js",
+  "main": "./dist/index.js",
   "scripts": {
     "start": "./node_modules/.bin/parcel src/docs/index.html",
     "build": "./node_modules/.bin/webpack --mode=production",
