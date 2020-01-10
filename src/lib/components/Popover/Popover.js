@@ -1,16 +1,18 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {
   Popover as InnerPopover,
-  PopoverTrigger,
-  PopoverContent,
   PopoverArrow,
-  PopoverCloseButton,
-  PopoverHeader,
   PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverFooter,
+  PopoverHeader,
+  PopoverTrigger,
   useTheme,
 } from '@chakra-ui/core';
+import FocusLock from 'react-focus-lock';
 import { Button, IconButton } from '../index';
 import { mergeCSS, processThemeCSS } from '../../shared/utils/themeUtil';
 
@@ -19,8 +21,10 @@ const Popover = (props, ref) => {
     button,
     children,
     css: propsCss,
+    footer,
     hideArrow,
     hideCloseButton,
+    lockFocus,
     title,
   } = props;
 
@@ -35,52 +39,86 @@ const Popover = (props, ref) => {
   } else {
     InnerButton = IconButton;
   }
+  const buttonColor = _.get(buttonProps, 'variantColor', 'neutral');
 
   const theme = useTheme();
   const css = processThemeCSS({
     css: mergeCSS(
       propsCss,
-      _.get(theme, 'Popover.base')
+      {
+        '[data-focus-lock-disabled]': { background: 'inherit' },
+      },
+      _.get(theme, 'Popover.content')
     ),
     props,
     theme,
   });
+  const cssArrow = processThemeCSS({ css: _.get(theme, 'Popover.arrow'), props, theme });
+  const cssCloseButton = processThemeCSS({
+    css: mergeCSS(
+      { transition: 'all 0.25s, border 0s, line-height 0s' },
+      _.get(theme, 'Button.base'),
+      _.get(theme, 'Button.ghost'),
+      _.get(theme, 'Popover.closeButton')
+    ),
+    props: {
+      ...props,
+      variant: 'ghost',
+      variantColor: buttonColor,
+    },
+    theme,
+  });
+  const cssHeader = processThemeCSS({ css: _.get(theme, 'Popover.header'), props, theme });
+  const cssBody = processThemeCSS({ css: _.get(theme, 'Popover.body'), props, theme });
+  const cssFooter = processThemeCSS({ css: _.get(theme, 'Popover.footer'), props, theme });
 
   const outterProps = {
     ...props,
     button: undefined,
   };
 
+  const Wrapper = lockFocus ? FocusLock : Fragment;
+
   return (
     <InnerPopover
       {...outterProps}
-      css={css}
     >
       <PopoverTrigger>
         <InnerButton {...buttonProps}/>
       </PopoverTrigger>
-      <PopoverContent zIndex={4}>
-        {
-          !hideArrow &&
-            <PopoverArrow />
-        }
-        {
-          !hideCloseButton &&
-            <PopoverCloseButton
-              right={1}
-              padding={2}
-              height='32px'
-              width='32px'
-            />
-        }
-        {
-          title &&
-            <PopoverHeader>{title}</PopoverHeader>
-        }
-        {
-          children &&
-            <PopoverBody>{children}</PopoverBody>
-        }
+      <PopoverContent
+        css={css}
+        zIndex={4}
+      >
+        <Wrapper>
+          {
+            !hideArrow &&
+              <PopoverArrow css={cssArrow}/>
+          }
+          {
+            !hideCloseButton &&
+              <PopoverCloseButton
+                css={cssCloseButton}
+                right={1}
+                size='xl'
+                height='32px'
+                padding={0}
+                width='32px'
+              />
+          }
+          {
+            title &&
+              <PopoverHeader css={cssHeader}>{title}</PopoverHeader>
+          }
+          {
+            children &&
+              <PopoverBody css={cssBody}>{children}</PopoverBody>
+          }
+          {
+            footer &&
+              <PopoverFooter css={cssFooter}>{footer}</PopoverFooter>
+          }
+        </Wrapper>
       </PopoverContent>
     </InnerPopover>
   );
@@ -95,7 +133,7 @@ Meta.propTypes = {
   /** Props for the trigger button */
   button: PropTypes.shape({
     /** Whether the button is disabled */
-    disabled: PropTypes.bool,
+    isDisabled: PropTypes.bool,
     /** Whether the button is in a loading (inactive) state */
     isLoading: PropTypes.bool,
     /** Name of an icon to show on the left side of the content */
@@ -113,24 +151,28 @@ Meta.propTypes = {
   }),
   /** The popover contents */
   children: PropTypes.node,
-  /** Hide direction arrow */
-  hideArrow: PropTypes.bool,
-  /** Hide the close button */
-  hideCloseButton: PropTypes.bool,
-  /** Title of the popover */
-  title: PropTypes.string,
-  /** Whether the popover should be placed in the `body` of the DOM */
-  usePortal: PropTypes.bool,
-  /** Whether the popover is triggered via a click or a hover action */
-  trigger: PropTypes.oneOf([ 'click', 'hover' ]),
-  /** Position of the popover, relative to the trigger */
-  placement: PropTypes.oneOf([ 'bottom', 'left', 'right', 'top' ]),
-  /** Whether the triggered should receive focus when the popover closes */
-  returnFocusOnClose: PropTypes.bool,
   /** Whether the popover should close when it loses focus */
   closeOnBlur: PropTypes.bool,
   /** Whether the popover should close when the user presses the ESC key */
   closeOnEsc: PropTypes.bool,
+  /** The popover footer contents */
+  footer: PropTypes.node,
+  /** Hide direction arrow */
+  hideArrow: PropTypes.bool,
+  /** Hide the close button */
+  hideCloseButton: PropTypes.bool,
+  /** Whether to lock keyboard focus inside the popover body */
+  lockFocus: PropTypes.bool,
+  /** Position of the popover, relative to the trigger */
+  placement: PropTypes.oneOf([ 'bottom', 'left', 'right', 'top' ]),
+  /** Whether the triggered should receive focus when the popover closes */
+  returnFocusOnClose: PropTypes.bool,
+  /** Title of the popover */
+  title: PropTypes.string,
+  /** Whether the popover is triggered via a click or a hover action */
+  trigger: PropTypes.oneOf([ 'click', 'hover' ]),
+  /** Whether the popover should be placed in the `body` of the DOM */
+  usePortal: PropTypes.bool,
 };
 Meta.defaultProps = {
   button: {
@@ -139,8 +181,10 @@ Meta.defaultProps = {
   children: null,
   closeOnBlur: true,
   closeOnEsc: true,
+  footer: null,
   hideArrow: false,
   hideCloseButton: false,
+  lockFocus: false,
   placement: 'bottom',
   returnFocusOnClose: true,
   title: null,

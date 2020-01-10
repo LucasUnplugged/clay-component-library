@@ -39,7 +39,7 @@ storiesOf('Button', module)
               Button Sizing
             </Heading>
             <Button
-            disabled={boolean('Show Disabled State')}
+              isDisabled={boolean('Show Disabled State')}
               isLoading={boolean('Show Loading State')}
               onClick={action('clicked')}
               size='xs'
@@ -49,7 +49,7 @@ storiesOf('Button', module)
               Button
             </Button>
             <Button
-            disabled={boolean('Show Disabled State')}
+              isDisabled={boolean('Show Disabled State')}
               isLoading={boolean('Show Loading State')}
               loadingText='Loading…'
               onClick={action('clicked')}
@@ -60,7 +60,7 @@ storiesOf('Button', module)
               Button
             </Button>
             <Button
-            disabled={boolean('Show Disabled State')}
+              isDisabled={boolean('Show Disabled State')}
               isLoading={boolean('Show Loading State')}
               onClick={action('clicked')}
               size='md'
@@ -70,7 +70,7 @@ storiesOf('Button', module)
               Button
             </Button>
             <Button
-            disabled={boolean('Show Disabled State')}
+              isDisabled={boolean('Show Disabled State')}
               isLoading={boolean('Show Loading State')}
               loadingText='Loading…'
               onClick={action('clicked')}
@@ -88,7 +88,7 @@ storiesOf('Button', module)
             </Heading>
             <Button
               leftIcon='FiMail'
-              disabled={boolean('Show Disabled State')}
+              isDisabled={boolean('Show Disabled State')}
               isLoading={boolean('Show Loading State')}
               loadingText='Fetching…'
               onClick={action('clicked')}
@@ -99,7 +99,7 @@ storiesOf('Button', module)
             </Button>
             <Button
               rightIcon='FiPhone'
-              disabled={boolean('Show Disabled State')}
+              isDisabled={boolean('Show Disabled State')}
               isLoading={boolean('Show Loading State')}
               loadingText='Fetching…'
               onClick={action('clicked')}
@@ -110,7 +110,7 @@ storiesOf('Button', module)
             </Button>
             <IconButton
               icon='FiInfo'
-              disabled={boolean('Show Disabled State')}
+              isDisabled={boolean('Show Disabled State')}
               isLoading={boolean('Show Loading State')}
               onClick={action('clicked')}
               variantColor={select('Variant Colour', options.variantColor, defaultOptions.variantColor)}
@@ -123,7 +123,7 @@ storiesOf('Button', module)
               Prioritizing Via Emphasis
             </Heading>
             <Button
-            disabled={boolean('Show Disabled State')}
+              isDisabled={boolean('Show Disabled State')}
               isLoading={boolean('Show Loading State')}
               loadingText='Cancelling…'
               onClick={action('clicked')}
@@ -133,7 +133,7 @@ storiesOf('Button', module)
               Cancel
             </Button>
             <Button
-            disabled={boolean('Show Disabled State')}
+              isDisabled={boolean('Show Disabled State')}
               isLoading={boolean('Show Loading State')}
               loadingText='Saving…'
               onClick={action('clicked')}

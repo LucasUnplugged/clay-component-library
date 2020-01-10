@@ -37,26 +37,27 @@ export default IconButton;
 /** A basic, customizable button. */
 class Meta { render() { return } } export { Meta };
 Meta.propTypes = {
-  /** Whether the button is disabled */
-  disabled: PropTypes.bool,
   /** Name of an icon to show on the left side of the content */
   icon: PropTypes.string,
+  /** Whether the button is disabled */
+  isDisabled: PropTypes.bool,
   /** Whether the button is in a loading (inactive) state */
   isLoading: PropTypes.bool,
   /** The text to show while loading, if any */
   loadingText: PropTypes.string,
   /** Triggered by pressing the button */
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
   /** The variant to use */
   variant: PropTypes.oneOf([ 'outline', 'ghost', 'link', 'solid' ]),
   /** Color scheme to use */
   variantColor: PropTypes.oneOf([ 'primary', 'secondary', 'tertiary', 'neutral' ]),
 };
 Meta.defaultProps = {
-  disabled: false,
   icon: null,
+  isDisabled: false,
   isLoading: false,
   loadingText: null,
+  onClick: () => {},
   variant: 'solid',
   variantColor: 'primary',
 };

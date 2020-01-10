@@ -134,6 +134,12 @@ export const generateColorRange = ({ blendWithDark, blendWithLight, color }) => 
         ? isBrightColor ? 0.40 : 0.20
         : 0.40,
     }),
+    1000: shiftColor({
+      color: blendWithLight ? blendWithLight : color,
+      shiftBy: blendWithLight
+        ? isBrightColor ? 0.60 : 0.30
+        : 0.60,
+    }),
   };
 };
 
@@ -213,6 +219,7 @@ export const getAlphaColors = color => {
     700: `rgba(${rgb}, 0.64)`,
     800: `rgba(${rgb}, 0.80)`,
     900: `rgba(${rgb}, 0.92)`,
+    1000: `rgba(${rgb}, 1.00)`,
   };
 };
 
@@ -291,7 +298,7 @@ const _processThemeString = ({ props, string, theme }) => {
   if (hasColorModeVariable) {
     string = _.replace(string, /%\[([^}]+)\]/g, input => {
       const variableString = input.replace('%[', '').replace(']', '');
-      const stringsByMode = variableString.split('/');
+      const stringsByMode = variableString.split('%');
       const colorMode = _.get(theme, 'colorMode', 'light').toLowerCase();
       return colorMode === 'dark' ? stringsByMode[1] : stringsByMode[0];
     });
@@ -325,10 +332,11 @@ export const processThemeCSS = ({ css, props, theme }) => {
 };
 
 // Keeps the order of merged CSS selectors & props, unlike a regular merge, if an object key is repeated
-export const mergeCSS = (...objects) => _.mergeWith({}, ...objects, (objValue, srcValue, key, object) => {
-  if (srcValue !== undefined && objValue !== undefined) {
-    const newValue = _.merge({}, objValue, srcValue);
+export const mergeCSS = (...objects) => _.mergeWith({}, ...objects, (objValue, newValue, key, object) => {
+  if (newValue !== undefined && objValue !== undefined) {
+    const isMergeable = _.isObject(objValue) && _.isObject(newValue);
+    const result = isMergeable ? _.merge({}, objValue, newValue) : newValue;
     delete object[key];
-    return newValue;
+    return result;
   }
 });
