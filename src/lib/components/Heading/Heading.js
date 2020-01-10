@@ -1,18 +1,17 @@
-import React from 'react';
-import { forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import { Heading as InnerHeading, useTheme } from '@chakra-ui/core';
-import { processThemeCSS } from '../../shared/utils/themeUtil';
+import { mergeCSS, processThemeCSS } from '../../shared/utils/themeUtil';
 
 const Heading = forwardRef((props, ref) => {
   const { css: propsCss } = props;
   const theme = useTheme();
-  const { heading = {} } = theme;
   const css = processThemeCSS({
-    css: {
-      ...propsCss,
-      ...heading.base,
-    },
+    css: mergeCSS(
+      propsCss,
+      _.get(theme, 'Heading.base')
+    ),
     props,
     theme,
   });

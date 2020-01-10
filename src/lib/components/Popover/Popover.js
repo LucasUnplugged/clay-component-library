@@ -1,6 +1,6 @@
-import React from 'react';
-import { forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import {
   Popover as InnerPopover,
   PopoverTrigger,
@@ -12,7 +12,7 @@ import {
   useTheme,
 } from '@chakra-ui/core';
 import { Button, IconButton } from '../index';
-import { processThemeCSS } from '../../shared/utils/themeUtil';
+import { mergeCSS, processThemeCSS } from '../../shared/utils/themeUtil';
 
 const Popover = (props, ref) => {
   const {
@@ -37,12 +37,11 @@ const Popover = (props, ref) => {
   }
 
   const theme = useTheme();
-  const { popover = {} } = theme;
   const css = processThemeCSS({
-    css: {
-      ...propsCss,
-      ...popover.base,
-    },
+    css: mergeCSS(
+      propsCss,
+      _.get(theme, 'Popover.base')
+    ),
     props,
     theme,
   });

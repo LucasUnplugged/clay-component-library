@@ -1,22 +1,23 @@
-import React from 'react';
-import { forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import { IconButton as InnerIconButton, useTheme } from '@chakra-ui/core';
-import { processThemeCSS } from '../../shared/utils/themeUtil';
+import { mergeCSS, processThemeCSS } from '../../shared/utils/themeUtil';
 
 const _blurOnMouseUp = () => document.addEventListener('mouseup', () => document.activeElement.blur(), { once: true });
 
 const IconButton = forwardRef((props, ref) => {
   const { css: propsCss, variant } = props;
   const theme = useTheme();
-  const { button = {} } = theme;
   const css = processThemeCSS({
-    css: {
-      ...propsCss,
-      transition: 'all 0.25s, border 0s, line-height 0s',
-      ...button.base,
-      ...button[variant],
-    },
+    css: mergeCSS(
+      propsCss,
+      { transition: 'all 0.25s, border 0s, line-height 0s' },
+      _.get(theme, 'Button.base'),
+      _.get(theme, `Button.${variant}`),
+      _.get(theme, 'IconButton.base'),
+      _.get(theme, `IconButton.${variant}`)
+    ),
     props,
     theme,
   });

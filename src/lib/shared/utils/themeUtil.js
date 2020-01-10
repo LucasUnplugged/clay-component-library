@@ -323,3 +323,12 @@ export const processThemeCSS = ({ css, props, theme }) => {
   }
   return css;
 };
+
+// Keeps the order of merged CSS selectors & props, unlike a regular merge, if an object key is repeated
+export const mergeCSS = (...objects) => _.mergeWith({}, ...objects, (objValue, srcValue, key, object) => {
+  if (srcValue !== undefined && objValue !== undefined) {
+    const newValue = _.merge({}, objValue, srcValue);
+    delete object[key];
+    return newValue;
+  }
+});
