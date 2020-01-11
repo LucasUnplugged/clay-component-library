@@ -3,10 +3,8 @@ import * as themes from './shared/themes';
 import * as themeUtil from './shared/utils/themeUtil';
 import _ from 'lodash';
 
-_.each({
+export default {
   ...components,
   ...themes,
   ...themeUtil,
-}, (value, key) => {
-  exports[key] = value;
-});
+};
