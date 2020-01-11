@@ -8,22 +8,14 @@ import {
   select,
   text,
 } from '@storybook/addon-knobs';
-import {
-  Box,
-  Grid,
-  Popover as InnerPopover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverArrow,
-  PopoverCloseButton,
-  PopoverHeader,
-  PopoverBody,
-} from '@chakra-ui/core';
 import Popover, { Meta } from './Popover';
 import {
+  Badge,
+  Box,
   Button,
   ButtonGroup,
   Flex,
+  Grid,
   Heading,
 } from '../index';
 
@@ -124,7 +116,23 @@ storiesOf('Popover', module)
               hideArrow={boolean('Hide Arrow', false)}
               hideCloseButton={boolean('Hide Close Button', false)}
               lockFocus={true}
-              title={text('Popover Title', 'Title')}
+              title={(
+                <Flex align='center' justify='flex-start'>
+                  <Heading
+                    as='h4'
+                    fontWeight='normal'
+                    mr='2'
+                    size='sm'
+                  >
+                    {text('Popover Title', 'Title')}
+                  </Heading>
+                  <Badge
+                    variantColor='neutral'
+                  >
+                    15
+                  </Badge>
+                </Flex>
+              )}
               trigger={select('Trigger', options.trigger, defaultOptions.trigger)}
               placement={select('Placement', options.placement, defaultOptions.placement)}
             >

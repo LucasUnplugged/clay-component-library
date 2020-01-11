@@ -68,7 +68,14 @@ const Popover = (props, ref) => {
     },
     theme,
   });
-  const cssHeader = processThemeCSS({ css: _.get(theme, 'Popover.header'), props, theme });
+  const cssHeader = processThemeCSS({
+    css: mergeCSS(
+      { minHeight: '42px' },
+      _.get(theme, 'Popover.header')
+    ),
+    props,
+    theme,
+  });
   const cssBody = processThemeCSS({ css: _.get(theme, 'Popover.body'), props, theme });
   const cssFooter = processThemeCSS({ css: _.get(theme, 'Popover.footer'), props, theme });
 
@@ -99,16 +106,17 @@ const Popover = (props, ref) => {
             !hideCloseButton &&
               <PopoverCloseButton
                 css={cssCloseButton}
-                right={1}
-                size='xl'
                 height='32px'
                 padding={0}
+                right='5px'
+                size='xl'
+                top='4px'
                 width='32px'
               />
           }
           {
             title &&
-              <PopoverHeader css={cssHeader}>{title}</PopoverHeader>
+              <PopoverHeader css={cssHeader} d='flex' align='center'>{title}</PopoverHeader>
           }
           {
             children &&
@@ -168,7 +176,7 @@ Meta.propTypes = {
   /** Whether the triggered should receive focus when the popover closes */
   returnFocusOnClose: PropTypes.bool,
   /** Title of the popover */
-  title: PropTypes.string,
+  title: PropTypes.node,
   /** Whether the popover is triggered via a click or a hover action */
   trigger: PropTypes.oneOf([ 'click', 'hover' ]),
   /** Whether the popover should be placed in the `body` of the DOM */
