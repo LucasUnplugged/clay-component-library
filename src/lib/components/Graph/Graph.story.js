@@ -21,121 +21,120 @@ import {
 
 const GRAPH_DATA = [
   {
-    motion: { total: 1 },
     timestamp: 1578867266,
-    transaction: { total: 10 },
+    motion: { total: 10 },
+    transaction: { total: 100 },
   },
   {
-    motion: { total: 2 },
     timestamp: 1578876266,
-    transaction: { total: 20 },
+    motion: { total: 40 },
+    transaction: { total: 400 },
   },
   {
-    motion: { total: 3 },
     timestamp: 1578885266,
-    transaction: { total: 30 },
+    motion: { total: 30 },
+    transaction: { total: 300 },
   },
   {
-    motion: { total: 4 },
     timestamp: 1578894266,
-    transaction: { total: 40 },
+    motion: { total: 20 },
+    transaction: { total: 200 },
   },
   {
-    motion: { total: 5 },
     timestamp: 1578903266,
-    transaction: { total: 50 },
+    motion: { total: 50 },
+    transaction: { total: 500 },
   },
 ];
 const MULTI_GRAPH_DATA = [
   [
     {
-      motion: { total: 1 },
       timestamp: 1578867266,
-      transaction: { total: 10 },
+      motion: { total: 6 },
+      transaction: { total: 60 },
     },
     {
-      motion: { total: 2 },
       timestamp: 1578876266,
+      motion: { total: 8 },
+      transaction: { total: 80 },
+    },
+    {
+      timestamp: 1578885266,
+      motion: { total: 2 },
       transaction: { total: 20 },
     },
     {
-      motion: { total: 3 },
-      timestamp: 1578885266,
-      transaction: { total: 30 },
-    },
-    {
-      motion: { total: 4 },
       timestamp: 1578894266,
+      motion: { total: 4 },
       transaction: { total: 40 },
     },
     {
-      motion: { total: 5 },
       timestamp: 1578903266,
-      transaction: { total: 50 },
+      motion: { total: 10 },
+      transaction: { total: 100 },
     },
   ],
   [
     {
-      motion: { total: 11 },
       timestamp: 1578867266,
-      transaction: { total: 110 },
+      motion: { total: 51 },
+      transaction: { total: 510 },
     },
     {
-      motion: { total: 21 },
       timestamp: 1578876266,
+      motion: { total: 21 },
       transaction: { total: 210 },
     },
     {
-      motion: { total: 31 },
       timestamp: 1578885266,
+      motion: { total: 31 },
       transaction: { total: 310 },
     },
     {
-      motion: { total: 41 },
       timestamp: 1578894266,
-      transaction: { total: 410 },
+      motion: { total: 11 },
+      transaction: { total: 110 },
     },
     {
-      motion: { total: 51 },
       timestamp: 1578903266,
-      transaction: { total: 510 },
+      motion: { total: 41 },
+      transaction: { total: 410 },
     },
   ],
   [
     {
-      motion: { total: 21 },
       timestamp: 1578867266,
+      motion: { total: 21 },
       transaction: { total: 210 },
     },
     {
-      motion: { total: 22 },
       timestamp: 1578876266,
-      transaction: { total: 220 },
+      motion: { total: 25 },
+      transaction: { total: 250 },
     },
     {
-      motion: { total: 23 },
       timestamp: 1578885266,
+      motion: { total: 23 },
       transaction: { total: 230 },
     },
     {
-      motion: { total: 24 },
       timestamp: 1578894266,
+      motion: { total: 24 },
       transaction: { total: 240 },
     },
     {
-      motion: { total: 25 },
       timestamp: 1578903266,
-      transaction: { total: 250 },
+      motion: { total: 22 },
+      transaction: { total: 220 },
     },
   ],
 ];
 const Y_AXIS_LABELS = {
-  motion: [ 5, 10, 15, 20, 25, 30, 35, 40, 45 ],
-  transaction: [ 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700 ],
+  motion: [ 0, 10, 20, 30, 40, 50, 60, 70, 80 ],
+  transaction: [ 0, 100, 200, 300, 400, 500, 600, 700, 800 ],
 };
 const LABEL = [ 'AAA', 'BBB', 'CCC', 'DDD' ];
 const TIME_TO_LABEL = timestamp => {
-  console.warn('timestamp', timestamp);
   if (_.isNaN(timestamp) || !_.isNumber(timestamp)) {
     return 'NaN';
   }
@@ -143,6 +142,16 @@ const TIME_TO_LABEL = timestamp => {
   const date = new Date(timestamp * 1000);
   return date.toLocaleTimeString();
 };
+const CHART_HEIGHT = 350;
+const CHART_WIDTH = 700;
+const TIMES = [
+  1578858266,
+  1578867266,
+  1578876266,
+  1578885266,
+  1578894266,
+  1578903266,
+];
 
 storiesOf('Graph', module)
   .add(
@@ -165,25 +174,30 @@ storiesOf('Graph', module)
           templateColumns='100%'
           templateRows='repeat(auto-fill, minmax(40px, 1fr))'
         >
-          <Box w={500}>
-            <Heading as='h2' size='lg' fontWeight='normal' color='neutral.200' mb={4}>
-              Single Graph
-            </Heading>
-            <Graph
-              css={{}}
-              data={GRAPH_DATA}
-              direction='horizontal'
-              isMultiGraph={false}
-              type={select('Graph Type', options.type, defaultOptions.type)}
-              horizontalLabels={TIME_TO_LABEL}
-              verticalLabels={[ 5, 10, 15, 20, 25, 30, 35, 40, 45 ]}
-              xProp='timestamp'
-              yProp={`${eventType}.total`}
-            />
-          </Box>
           {
-            false &&
-              <Box>
+            true &&
+              <Box w={CHART_WIDTH}>
+                <Heading as='h2' size='lg' fontWeight='normal' color='neutral.200' mb={4}>
+                  Single Graph
+                </Heading>
+                <Graph
+                  css={{}}
+                  data={GRAPH_DATA}
+                  direction='horizontal'
+                  height={CHART_HEIGHT}
+                  horizontalLabels={TIME_TO_LABEL}
+                  horizontalProp='timestamp'
+                  isMultiGraph={false}
+                  type={select('Graph Type', options.type, defaultOptions.type)}
+                  verticalLabels={Y_AXIS_LABELS[eventType]}
+                  verticalProp={`${eventType}.total`}
+                  width={CHART_WIDTH}
+                />
+              </Box>
+          }
+          {
+            true &&
+              <Box w={CHART_WIDTH}>
                 <Heading as='h2' size='lg' fontWeight='normal' color='neutral.200' mb={4}>
                   Stacked Graph
                 </Heading>
@@ -191,12 +205,14 @@ storiesOf('Graph', module)
                   css={{}}
                   data={MULTI_GRAPH_DATA}
                   direction='horizontal'
+                  height={CHART_HEIGHT}
+                  horizontalLabels={TIME_TO_LABEL}
+                  horizontalProp='timestamp'
                   isMultiGraph={true}
                   type={select('Graph Type', options.type, defaultOptions.type)}
-                  horizontalLabels={TIME_TO_LABEL}
                   verticalLabels={Y_AXIS_LABELS[eventType]}
-                  xProp='timestamp'
-                  yProp={`${eventType}.total`}
+                  verticalProp={`${eventType}.total`}
+                  width={CHART_WIDTH}
                 />
               </Box>
           }

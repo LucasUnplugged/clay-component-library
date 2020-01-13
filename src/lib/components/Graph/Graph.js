@@ -33,11 +33,12 @@ const CHART_TYPES = {
   scatter: VictoryScatter,
   voronoi: VictoryVoronoi,
 };
+const GROUPING_TYPES = {
+  group: VictoryGroup,
+  stack: VictoryStack,
+};
 
 const axisLabelGetter = tick => _.get(tick, 'label', tick);
-// VictoryAxis
-// VictoryGroup
-// VictoryStack
 
 const Graph = forwardRef((props, ref) => {
   const {
@@ -45,55 +46,68 @@ const Graph = forwardRef((props, ref) => {
     css: propsCss,
     data,
     direction,
+    height,
     horizontalLabels,
+    horizontalProp,
+    horizontalTicks,
     isMultiGraph,
+    multiGraphType,
     type,
     verticalLabels,
-    xProp,
-    yProp,
+    verticalProp,
+    verticalTicks,
+    width,
   } = props;
   console.warn('props', props);
 
   const theme = useTheme();
   const css = processThemeCSS({ css: mergeCSS(propsCss, _.get(theme, 'Graph.base')), props, theme });
   const Chart = CHART_TYPES[type];
+  const Grouping = GROUPING_TYPES[multiGraphType];
 
   const xAxisProps = {
     ...direction === 'vertical' ? { dependentAxis: true } : {},
     tickFormat: horizontalLabels,
+    tickValues: horizontalTicks,
   };
   const yAxisProps = {
     ...direction === 'horizontal' ? { dependentAxis: true } : {},
     tickFormat: verticalLabels,
+    tickValues: verticalTicks,
   };
-  console.warn('xAxisProps', xAxisProps);
-  console.warn('yAxisProps', yAxisProps);
 
   return (
     <VictoryChart
       css={css}
-      domainPadding={40}
+      domainPadding={{ x: [40, 40], y: [0, 10] }}
+      height={height}
       ref={ref}
       theme={VictoryTheme.material}
+      width={width}
     >
       <VictoryAxis {...yAxisProps}/>
       <VictoryAxis {...xAxisProps}/>
       {
-        isMultiGraph && _.each(data, (dataset, key) => {
-          <Chart
-            data={dataset}
-            key={key}
-            x={xProp}
-            y={yProp}
-          />
-        })
+        isMultiGraph &&
+          <Grouping>
+            {
+              _.map(data, (dataset, key) => (
+                <Chart
+                  data={dataset}
+                  key={key}
+                  x={horizontalProp}
+                  y={verticalProp}
+                />
+              ))
+            }
+          </Grouping>
       }
       {
         !isMultiGraph &&
           <Chart
             data={data}
-            x={xProp}
-            y={yProp}
+            x={horizontalProp}
+            y={verticalProp}
           />
       }
     </VictoryChart>
@@ -115,8 +129,27 @@ Meta.propTypes = {
   ]),
   /** Defines which axis the data runs across */
   direction: PropTypes.oneOf([ 'horizontal', 'vertical' ]),
+  /** Chart height */
+  height: PropTypes.number,
+  /** Labels along the horizontal axis */
+  horizontalLabels: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.func,
+  ]),
+  /** The (nested) data property to use along the horizontal axis */
+  horizontalProp: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.string,
+  ]).isRequired,
+  /** Tick values along the horizontal axis */
+  horizontalTicks: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.func,
+  ]),
   /** Whether the graph has multiple charts inside it */
   isMultiGraph: PropTypes.bool,
+  /** Type of grouping for multi-chart graphs */
+  multiGraphType: PropTypes.oneOf([ 'group', 'stack' ]),
   /** The type of graph */
   type: PropTypes.oneOf([
     'area',
@@ -130,33 +163,37 @@ Meta.propTypes = {
     'scatter',
     'voronoi',
   ]),
-  /** Labels for the horizontal axis */
-  horizontalLabels: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.func,
-  ]),
-  /** Labels for the vertical axis */
+  /** Labels along the vertical axis */
   verticalLabels: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.func,
   ]),
-  xProp: PropTypes.oneOfType([
+  /** Tick values along the vertical axis */
+  verticalTicks: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.func,
+  ]),
+  /** The (nested) data property to use along the vertical axis */
+  verticalProp: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.string,
   ]).isRequired,
-  yProp: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.string,
-  ]).isRequired,
+  /** Chart width */
+  width: PropTypes.number,
 };
 Meta.defaultProps = {
   css: null,
   data: null,
   direction: 'horizontal',
-  isMultiGraph: false,
-  type: 'bar',
+  height: undefined,
   horizontalLabels: axisLabelGetter,
+  horizontalTicks: null,
+  isMultiGraph: false,
+  multiGraphType: 'stack',
+  type: 'bar',
   verticalLabels: axisLabelGetter,
+  verticalTicks: null,
+  width: undefined,
 };
 
 // COMPONENT PROPS ////////////////////////////////////////////////////////////
