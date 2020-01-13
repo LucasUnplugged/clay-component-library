@@ -82,7 +82,7 @@ const Graph = forwardRef((props, ref) => {
       domainPadding={{ x: [40, 40], y: [0, 10] }}
       height={height}
       ref={ref}
-      theme={VictoryTheme.material}
+      theme={VictoryTheme.grayscale}
       width={width}
     >
       <VictoryAxis {...yAxisProps}/>

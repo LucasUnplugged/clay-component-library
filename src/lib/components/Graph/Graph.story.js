@@ -177,7 +177,7 @@ storiesOf('Graph', module)
           {
             true &&
               <Box w={CHART_WIDTH}>
-                <Heading as='h2' size='lg' fontWeight='normal' color='neutral.200' mb={4}>
+                <Heading as='h2' size='lg' fontWeight='normal' color='neutral.200' mb={0}>
                   Single Graph
                 </Heading>
                 <Graph
@@ -198,7 +198,7 @@ storiesOf('Graph', module)
           {
             true &&
               <Box w={CHART_WIDTH}>
-                <Heading as='h2' size='lg' fontWeight='normal' color='neutral.200' mb={4}>
+                <Heading as='h2' size='lg' fontWeight='normal' color='neutral.200' mb={0}>
                   Stacked Graph
                 </Heading>
                 <Graph
