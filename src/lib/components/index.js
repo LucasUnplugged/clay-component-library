@@ -51,6 +51,7 @@ import FocusLock, { AutoFocusInside } from 'react-focus-lock';
 
 import Button from './Button/Button';
 import CloseButton from './CloseButton/CloseButton';
+import Graph from './Graph/Graph';
 import Heading from './Heading/Heading';
 import IconButton from './IconButton/IconButton';
 import Popover from './Popover/Popover';
@@ -108,6 +109,7 @@ export {
 
   Button,
   CloseButton,
+  Graph,
   Heading,
   IconButton,
   Popover,
