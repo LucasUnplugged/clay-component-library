@@ -32,9 +32,12 @@ class Meta { render() { return } } export { Meta };
 Meta.propTypes = {
   /** The heading text */
   children: PropTypes.node,
+  /** Custom styling for this component */
+  css: PropTypes.object,
 };
 Meta.defaultProps = {
   children: null,
+  css: null,
 };
 
 // COMPONENT PROPS ////////////////////////////////////////////////////////////

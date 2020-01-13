@@ -159,6 +159,8 @@ Meta.propTypes = {
   }),
   /** The popover contents */
   children: PropTypes.node,
+  /** Custom styling for this component */
+  css: PropTypes.object,
   /** Whether the popover should close when it loses focus */
   closeOnBlur: PropTypes.bool,
   /** Whether the popover should close when the user presses the ESC key */
@@ -187,6 +189,7 @@ Meta.defaultProps = {
     icon: 'FiInfo',
   },
   children: null,
+  css: null,
   closeOnBlur: true,
   closeOnEsc: true,
   footer: null,

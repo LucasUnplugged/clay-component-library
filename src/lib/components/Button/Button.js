@@ -37,6 +37,8 @@ class Meta { render() { return } } export { Meta };
 Meta.propTypes = {
   /** The inner contents of the button */
   children: PropTypes.node,
+  /** Custom styling for this component */
+  css: PropTypes.object,
   /** Whether the button is disabled */
   isDisabled: PropTypes.bool,
   /** Whether the button is in a loading (inactive) state */
@@ -56,6 +58,7 @@ Meta.propTypes = {
 };
 Meta.defaultProps = {
   children: null,
+  css: null,
   isDisabled: false,
   isLoading: false,
   leftIcon: null,

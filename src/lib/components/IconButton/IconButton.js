@@ -37,6 +37,8 @@ export default IconButton;
 /** A basic, customizable button. */
 class Meta { render() { return } } export { Meta };
 Meta.propTypes = {
+  /** Custom styling for this component */
+  css: PropTypes.object,
   /** Name of an icon to show on the left side of the content */
   icon: PropTypes.string,
   /** Whether the button is disabled */
@@ -53,6 +55,7 @@ Meta.propTypes = {
   variantColor: PropTypes.oneOf([ 'primary', 'secondary', 'tertiary', 'neutral' ]),
 };
 Meta.defaultProps = {
+  css: null,
   icon: null,
   isDisabled: false,
   isLoading: false,
